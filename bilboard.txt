@@ -1,0 +1,23 @@
+select *
+from tutorial.billboard_top_100_year_end
+where artist ilike 'elvis presley'
+
+select *
+from tutorial.billboard_top_100_year_end
+where artist ilike '%Tony%'
+
+select *
+from tutorial.billboard_top_100_year_end
+where song_name ilike '%love%'
+
+select *
+from tutorial.billboard_top_100_year_end
+where artist ilike 'A%'
+
+select *
+from tutorial.billboard_top_100_year_end
+where year_rank < 4 and year between 1960 and 1969
+
+select *
+from tutorial.billboard_top_100_year_end
+where artist in ('Elvis Presley', 'Rolling Stones', 'Van Halen')
