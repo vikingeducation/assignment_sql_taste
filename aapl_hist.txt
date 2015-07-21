@@ -1,0 +1,56 @@
+select *
+from tutorial.aapl_historical_stock_price
+
+select Count(*)
+from tutorial.aapl_historical_stock_price
+where  high - low > 5
+
+select MAX(high - low) as max_trade
+from tutorial.aapl_historical_stock_price
+where year = 2012 
+
+select avg(close)
+from tutorial.aapl_historical_stock_price
+where volume > 10000000
+
+select month, count(*) as count
+from tutorial.aapl_historical_stock_price
+where year = 2002
+group by month
+order by month
+
+select year, max(close) as max_closse_price
+from tutorial.aapl_historical_stock_price
+group by year
+order by year
+
+select month, avg(close) as avg_close, avg(volume) as avg_volume
+from tutorial.aapl_historical_stock_price
+group by month 
+order by month
+
+select year, month, avg(close) as avg_price
+from tutorial.aapl_historical_stock_price
+group by year, month
+order by year DESC, month
+
+select avg(close)
+from tutorial.aapl_historical_stock_price
+where volume > 25000000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
