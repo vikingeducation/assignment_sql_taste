@@ -354,8 +354,46 @@ SELECT *
 
 ##Return the percentage of unique prices compared to all prices in the data set
 
+    SELECT COUNT(DISTINCT(open)) * 100 / COUNT(*) 
+    FROM tutorial.aapl_historical_stock_price
 
 
-A listing of all months by their average daily trading volume and a classification that puts this volume into the following categories: "Low" = below 10MM, "Medium" = 10-25 MM, "High" = above 25MM
-A listing of average monthly price plus which quarter of the year they are in (e.g. "Q2" or "Q4").
-This same listing filtered for only Q4 (use the new column not the months explicitly as part of this filtering).
+##A listing of all months by their average daily trading volume and a classification that puts this volume into the following categories: "Low" = below 10MM, "Medium" = 10-25 MM, "High" = above 25MM
+
+    SELECT month,
+      AVG(volume) as average_trading_volume,
+      case  when AVG(volume) < 10000000 THEN 'Low'
+            when AVG(volume) BETWEEN 10000000 AND 25000000 THEN 'Medium'
+            else 'High' end as trading_volume 
+    FROM tutorial.aapl_historical_stock_price
+    GROUP BY month
+
+
+##A listing of average monthly price plus which quarter of the year they are in (e.g. "Q2" or "Q4").
+
+    SELECT month,
+      AVG((high+low)/2) as average_monthly_price,
+      case  when month between 1 and 3 THEN 'Q1'
+            when month between 4 and 6 THEN 'Q2'
+            when month between 7 and 9 THEN 'Q3'
+            else 'Q4' end as quarter 
+    FROM tutorial.aapl_historical_stock_price
+    GROUP BY month
+    ORDER BY quarter
+
+
+##This same listing filtered for only Q4 (use the new column not the months explicitly as part of this filtering).
+
+    SELECT *
+    FROM (SELECT month,
+          AVG((high+low)/2) as average_monthly_price,
+          case  when month between 1 and 3 THEN 'Q1'
+                when month between 4 and 6 THEN 'Q2'
+                when month between 7 and 9 THEN 'Q3'
+                else 'Q4' end as quarter 
+    FROM tutorial.aapl_historical_stock_price
+    GROUP BY month
+    ORDER BY quarter) as new_table
+    WHERE quarter = 'Q4'
+
+
