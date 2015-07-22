@@ -36,7 +36,7 @@ SELECT *
 
     SELECT *
     FROM tutorial.us_housing_units
-    WHERE year >= 1990 AND month > 5
+    WHERE year >= 1990 AND month > 6
 
 ##All rows where housing starts were above 30,000 in the South region
 
@@ -194,6 +194,8 @@ SELECT *
   ORDER BY year_rank, year
 
 
+
+
 #tutorial.billboard_top_100_year_end
 
 ##What is the highest position ever reached by Phil Collins?
@@ -261,7 +263,7 @@ SELECT *
 ##The number of trading days in each month of the year 1992
 
   SELECT COUNT(month) AS total_trading_days_in_month,
-    Month
+    month
   FROM tutorial.aapl_historical_stock_price
   WHERE year = 2002
   GROUP BY month
@@ -390,10 +392,40 @@ SELECT *
           case  when month between 1 and 3 THEN 'Q1'
                 when month between 4 and 6 THEN 'Q2'
                 when month between 7 and 9 THEN 'Q3'
-                else 'Q4' end as quarter 
-    FROM tutorial.aapl_historical_stock_price
-    GROUP BY month
-    ORDER BY quarter) as new_table
+                else 'Q4' end as quarter
+          FROM tutorial.aapl_historical_stock_price
+          GROUP BY month
+          ORDER BY quarter) as new_table
     WHERE quarter = 'Q4'
+
+
+#benn.college_football_players and benn.college_football_teams
+
+Note: To see the schemas for these tables listed on the left panel, you need to search for "benn" where it says "Search Mode Public Tables"... they are not listed under "Tutorial" automatically like the previous tables were.
+
+Note2: Mode uses a non-primary key "school_name" to join their tables here. You should really use primary keys wherever possible in your own data.
+
+##The most common home town of football players
+
+##The total number of players in each of their Freshmen, Sophomore, Junior or Senior years (4 rows)
+
+##The total number of players in each position
+
+##The average height of quarterbacks
+
+##The average height of each position
+
+##Return 100 football players and which conference they play for
+##The heaviest football player in the SEC
+
+##The top 5 heaviest football players in each conference
+
+##The most common home state of players by conference
+
+##The average height of football players in each conference
+
+##The count of football players in the top 100 of weight who belong to each division
+
+##All players whose home state is Kansas but who went to a school in Missouri
 
 
