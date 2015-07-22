@@ -81,7 +81,7 @@ from tutorial.aapl_historical_stock_price
 group by month
 order by month
 
-select month, avg(close), 
+select month, avg(close),
       Case WHEN month between 1 and 3 THEN 'Q1'
           WHEN month between 4 and 6 THEN 'Q2'
           WHEN month between 7 and 9 THEN 'Q3'
@@ -90,7 +90,7 @@ from tutorial.aapl_historical_stock_price
 group by month
 order by month
 
-select month, avg(close), 
+select month, avg(close),
       CASE WHEN month between 1 and 3 THEN 'Q1'
           WHEN month between 4 and 6 THEN 'Q2'
           WHEN month between 7 and 9 THEN 'Q3'
