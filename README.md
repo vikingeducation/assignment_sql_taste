@@ -96,7 +96,7 @@ SELECT *
   SELECT *
     FROM tutorial.billboard_top_100_year_end
     WHERE year > 1985 AND
-    artist NOT IN ('Madonna', 'Phil Collins')
+    "group" NOT IN ('Madonna', 'Phil Collins')
 
 10. All number 1 songs in the data set.
   SELECT *
