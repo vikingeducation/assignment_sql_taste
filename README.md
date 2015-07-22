@@ -36,7 +36,7 @@ SELECT *
 
     SELECT *
     FROM tutorial.us_housing_units
-    WHERE year >= 1990 AND month > 5
+    WHERE year >= 1990 AND month > 6
 
 ##All rows where housing starts were above 30,000 in the South region
 
@@ -194,6 +194,7 @@ SELECT *
   ORDER BY year_rank, year
 
 
+#INTERMEDIATE
 #tutorial.billboard_top_100_year_end
 
 ##What is the highest position ever reached by Phil Collins?
@@ -223,6 +224,7 @@ SELECT *
         COUNT(artist) AS artist_appearance
     FROM tutorial.billboard_top_100_year_end
     WHERE year_rank <= 10
+    AND year >= 1985
     GROUP BY artist
     ORDER BY artist_appearance DESC
     LIMIT 10
@@ -325,7 +327,7 @@ SELECT *
   SELECT AVG(volume) AS trading_volume_avg,
   month
   FROM tutorial.aapl_historical_stock_price
-  WHERE month > 5
+  WHERE month > 6
   AND volume < 10000000
   GROUP BY month
 
@@ -354,7 +356,7 @@ SELECT *
 
 ##Return the percentage of unique prices compared to all prices in the data set
 
-    SELECT COUNT(DISTINCT(open)) * 100 / COUNT(*) 
+    SELECT COUNT(DISTINCT(open)) * 100 / COUNT(*)
     FROM tutorial.aapl_historical_stock_price
 
 
@@ -364,7 +366,7 @@ SELECT *
       AVG(volume) as average_trading_volume,
       case  when AVG(volume) < 10000000 THEN 'Low'
             when AVG(volume) BETWEEN 10000000 AND 25000000 THEN 'Medium'
-            else 'High' end as trading_volume 
+            else 'High' end as trading_volume
     FROM tutorial.aapl_historical_stock_price
     GROUP BY month
 
@@ -376,7 +378,7 @@ SELECT *
       case  when month between 1 and 3 THEN 'Q1'
             when month between 4 and 6 THEN 'Q2'
             when month between 7 and 9 THEN 'Q3'
-            else 'Q4' end as quarter 
+            else 'Q4' end as quarter
     FROM tutorial.aapl_historical_stock_price
     GROUP BY month
     ORDER BY quarter
@@ -390,7 +392,7 @@ SELECT *
           case  when month between 1 and 3 THEN 'Q1'
                 when month between 4 and 6 THEN 'Q2'
                 when month between 7 and 9 THEN 'Q3'
-                else 'Q4' end as quarter 
+                else 'Q4' end as quarter
     FROM tutorial.aapl_historical_stock_price
     GROUP BY month
     ORDER BY quarter) as new_table
