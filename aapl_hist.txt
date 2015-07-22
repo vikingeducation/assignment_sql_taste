@@ -7,7 +7,7 @@ where  high - low > 5
 
 select MAX(high - low) as max_trade
 from tutorial.aapl_historical_stock_price
-where year = 2012 
+where year = 2012
 
 select avg(close)
 from tutorial.aapl_historical_stock_price
@@ -26,7 +26,7 @@ order by year
 
 select month, avg(close) as avg_close, avg(volume) as avg_volume
 from tutorial.aapl_historical_stock_price
-group by month 
+group by month
 order by month
 
 select year, month, avg(close) as avg_price
@@ -38,7 +38,48 @@ select avg(close)
 from tutorial.aapl_historical_stock_price
 where volume > 25000000
 
+select month, avg(close)
+from tutorial.aapl_historical_stock_price
+where volume > 10000000
+group by month
+order by month
 
+select min(close) as min_price, max(close) as max_price
+from tutorial.aapl_historical_stock_price
+where year between 2005 and 2010
+
+select avg(high-low)
+from tutorial.aapl_historical_stock_price
+where high - low > 25
+
+select month
+from tutorial.aapl_historical_stock_price
+where month > 6
+group by month
+HAVING avg(volume) < 10000000
+order by month
+
+select month, avg(volume)
+from tutorial.aapl_historical_stock_price
+group by month
+order by avg(volume)
+
+select count(DISTINCT(month))
+from tutorial.aapl_historical_stock_price
+
+select count(DISTINCT(close))
+from tutorial.aapl_historical_stock_price
+
+select count(DISTINCT(close)) * 100 / count(close) as unique_pct
+from tutorial.aapl_historical_stock_price
+
+select month, avg(volume),
+      CASE WHEN avg(volume) > 25000000 THEN 'High'
+            WHEN avg(volume) between 10000000 and 24999999 THEN 'Medium'
+            ELSE 'Low' END AS vol_category
+from tutorial.aapl_historical_stock_price
+group by month
+order by month
 
 
 
