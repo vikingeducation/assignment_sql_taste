@@ -1,0 +1,78 @@
+select *
+from tutorial.billboard_top_100_year_end
+where artist ilike 'elvis presley'
+
+select *
+from tutorial.billboard_top_100_year_end
+where artist ilike '%Tony%'
+
+select *
+from tutorial.billboard_top_100_year_end
+where song_name ilike '%love%'
+
+select *
+from tutorial.billboard_top_100_year_end
+where artist ilike 'A%'
+
+select *
+from tutorial.billboard_top_100_year_end
+where year_rank < 4 and year between 1960 and 1969
+
+select *
+from tutorial.billboard_top_100_year_end
+where artist in ('Elvis Presley', 'Rolling Stones', 'Van Halen')
+
+select *
+  from tutorial.billboard_top_100_year_end
+  where year = 1970 and year_rank between 10 and 20
+
+select *
+  from tutorial.billboard_top_100_year_end
+  where year between 1990 and 1999 and not (artist ilike '%Madonna%' and year_rank > 50)
+
+select *
+  from tutorial.billboard_top_100_year_end
+  where "group" not ilike '%Madonna%' and ("group" not ilike '%Phil Collins%') and year = 1985
+
+select *
+  from tutorial.billboard_top_100_year_end
+  where year_rank = 1
+
+select *
+  from tutorial.billboard_top_100_year_end
+  where artist IS NULL
+
+select *
+  from tutorial.billboard_top_100_year_end
+  where artist ilike '%Madonna%'
+  ORDER BY year_rank
+
+select *
+  from tutorial.billboard_top_100_year_end
+  where artist ilike '%Madonna%'
+  ORDER BY year, year_rank
+
+select *
+  from tutorial.billboard_top_100_year_end
+  where year_rank < 4 and year >= 1990
+  ORDER BY year_rank, year
+
+_________
+OPTIONAL
+_________
+
+select MIN(year_rank)
+  from tutorial.billboard_top_100_year_end
+  where artist ilike '%phil collins%'
+
+select AVG(year_rank)
+  from tutorial.billboard_top_100_year_end
+  where artist ilike '%michael jackson%'
+
+select AVG(year_rank)
+  from tutorial.billboard_top_100_year_end
+  where artist ilike '%madonna%' and year_rank <=10
+
+select count(*)
+  from tutorial.billboard_top_100_year_end
+  where artist IN ('Madonna', 'Elvis Presley', 'Elton John', 'Beatles') and year_rank <=10

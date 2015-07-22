@@ -1,0 +1,20 @@
+benn.college_football_players
+benn.college_football_teams
+
+select *
+  FROM benn.college_football_players
+
+select hometown, COUNT(hometown) as hometowns
+  FROM benn.college_football_players
+  GROUP BY hometown
+  ORDER BY COUNT(hometown) DESC
+  LIMIT 1
+
+SELECT CASE WHEN year = 'FR' THEN 'FR'
+            WHEN year = 'SO' THEN 'SO'
+            WHEN year = 'JR' THEN 'JR'
+            WHEN year = 'SR' THEN 'SR'
+            ELSE 'No Year Data' END AS year_group,
+            COUNT(1) AS count
+  FROM benn.college_football_players
+GROUP BY 1
