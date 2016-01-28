@@ -300,33 +300,82 @@ SELECT
 ```
 The average price of days with a trading volume above 25,000,000 shares (just 1 row)
 ```
+SELECT 
+  avg((high+low)/2) as avg_price
+  FROM tutorial.aapl_historical_stock_price
+  WHERE volume > 25000000;
 ```
 The average price on all months with an average daily trading volume above 10,000,000 shares.
 ```
+SELECT avg((high+low)/2) as avg_price
+  FROM tutorial.aapl_historical_stock_price
+  -- months with an average daily trading volume >10mil shares
+  HAVING avg(volume) > 10000000;
 ```
 The lowest and highest prices that Apple stock achieved between 2005 and 2010 (inclusive).
 ```
+SELECT min(low), max(high)
+  FROM tutorial.aapl_historical_stock_price
+  WHERE year BETWEEN 2005 and 2010;
 ```
 The average daily trading range in months where the stock moved more than $25 (open of month to close of month)
 ```
+-- not 100% sure what 'trading range' is
+-- i'm treating it as (high - low)
+SELECT avg(high-low)
+  FROM tutorial.aapl_historical_stock_price
+  GROUP BY high, low
+  HAVING (max(high) - min(low)) > 25;
 ```
 All months in the second half of the year where average daily trading volume was below 10,000,000.
 ```
+SELECT month, year, avg(volume)
+  FROM tutorial.aapl_historical_stock_price
+  WHERE month > 6
+  GROUP BY month, year
+  HAVING avg(volume) < 10000000
+  ORDER BY year, month;
 ```
 A list of all calendar months by average daily trading volume (so only 12 rows), sorted from highest to lowest.
 ```
+SELECT month, avg(volume)
+  FROM tutorial.aapl_historical_stock_price
+  GROUP BY month
+  ORDER BY avg(volume) desc;
 ```
 Count how many unique months there are in the data set (should equal 12)
 ```
+SELECT COUNT(DISTINCT(month))
+  FROM tutorial.aapl_historical_stock_price;
 ```
 Count how many unique years there are in the data set
 ```
+SELECT COUNT(DISTINCT(year))
+  FROM tutorial.aapl_historical_stock_price;
 ```
 Count how many unique prices there are in the data set
 ```
+SELECT COUNT(*)
+FROM (
+  SELECT low
+  FROM tutorial.aapl_historical_stock_price
+  UNION
+    SELECT high
+    FROM tutorial.aapl_historical_stock_price
+    UNION
+      SELECT open
+      FROM tutorial.aapl_historical_stock_price
+      UNION
+        SELECT close
+        FROM tutorial.aapl_historical_stock_price
+) AS distinct (COUNT);
 ```
 Return the percentage of unique "open" prices compared to all open prices in the data set
 ```
+-- 2942 distinct, 3541 total
+SELECT 
+  100.0* (COUNT(DISTINCT(open)) / CAST(COUNT(open) AS float))
+  FROM tutorial.aapl_historical_stock_price;
 ```
 A listing of all months by their average daily trading volume and a classification that puts this volume into the following categories: "Low" = below 10MM, "Medium" = 10-25 MM, "High" = above 25MM
 ```
