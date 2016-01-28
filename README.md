@@ -149,12 +149,12 @@ SELECT *
   WHERE year = 1970
   AND year_rank BETWEEN 10 and 20;
 ```
-All rows from the 1990's where Madonna was not ranked 10-100th - question here?
+All rows from the 1990's where Madonna was not ranked 10-100th
 ```
 SELECT * 
   FROM tutorial.billboard_top_100_year_end 
   WHERE year BETWEEN 1990 and 1999
-  AND (artist != 'Madonna' AND year_rank BETWEEN 10 AND 100);
+  AND NOT (artist = 'Madonna' AND year_rank BETWEEN 10 AND 100);
 ```
 All rows from 1985 which do not include Madonna or Phil Collins in the group.
 ```
@@ -165,16 +165,76 @@ SELECT *
 ```
 All number 1 songs in the data set.
 ```
+SELECT song_name, year_rank
+  FROM tutorial.billboard_top_100_year_end 
+  WHERE year_rank = 1 group by year_rank, song_name;
 ```
 All rows where the artist is not listed
 ```
+SELECT *
+  FROM tutorial.billboard_top_100_year_end 
+  WHERE artist is null;
 ```
 All of Madonna's top 100 hits ordered by their ranking (1 to 100)
 ```
+SELECT *
+  FROM tutorial.billboard_top_100_year_end 
+  WHERE artist = 'Madonna' 
+  ORDER BY year_rank;
 ```
 All of Madonna's top 100 hits ordered by their ranking within each year
 ```
+SELECT *
+  FROM tutorial.billboard_top_100_year_end 
+  WHERE artist = 'Madonna' 
+  ORDER BY year, year_rank;
 ```
 Every number 1 song since 1990 followed by every number 2 song since 1990 and number 3 song since 1990. (Hint: Multiple ordering)
 ```
+SELECT *
+  FROM tutorial.billboard_top_100_year_end 
+  WHERE year > 1990
+  AND year_rank BETWEEN 1 AND 3
+  ORDER BY year_rank, year;
+```
+
+
+
+###### (optional) tutorial.billboard_top_100_year_end
+
+What is the highest position ever reached by Phil Collins? 5
+```
+SELECT min(year_rank)
+  FROM tutorial.billboard_top_100_year_end 
+  WHERE artist = 'Phil Collins';
+```
+What is the average position reached by Michael Jackson? 46
+```
+SELECT avg(year_rank)
+  FROM tutorial.billboard_top_100_year_end 
+  WHERE artist = 'Michael Jackson';
+```
+Madonna's average position when she actually reached the top 10 = 6
+```
+SELECT avg(year_rank)
+  FROM tutorial.billboard_top_100_year_end 
+  WHERE artist = 'Madonna'
+  AND year_rank <= 10;
+```
+List the top 10 artists based on their number of appearances on this list (and what that number is) since 1985
+```
+SELECT artist, count(artist)
+  FROM tutorial.billboard_top_100_year_end 
+  WHERE year >= 1985
+  GROUP BY artist 
+  ORDER BY count(artist) DESC
+  LIMIT 10;
+```
+The total count of top 10 hits written by either Elvis, Madonna, the Beatles, or Elton John
+```
+SELECT count(*)
+  FROM tutorial.billboard_top_100_year_end 
+  WHERE year_rank <= 10
+  AND artist in ('Elvis', 'Madonna', 'The Beatles', 'Elton John');
+
 ```
