@@ -16,11 +16,12 @@ SELECT *
 ### tutorial.us_housing_units
 
 1. 10 results with information on all columns
-```
+
+  ```
   SELECT *
     FROM tutorial.us_housing_units
     LIMIT 10
-```
+  ```
 
 2. Housing starts in the Midwest
 
