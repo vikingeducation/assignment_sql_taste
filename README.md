@@ -121,7 +121,7 @@ SELECT *
   WHERE year_rank <= 3
   AND year BETWEEN 1960 AND 1969;
 ```
-All rows where either Elvis Presley, The Rolling Stones, or Van Halen were the artist - question here?
+All rows where either Elvis Presley, The Rolling Stones, or Van Halen were the artist
 ```
 SELECT *
    FROM tutorial.billboard_top_100_year_end
