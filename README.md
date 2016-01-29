@@ -338,7 +338,7 @@ SELECT year, month, AVG(high - low) AS avg_range
 WHERE close - open > 25
 GROUP BY month, year
 ORDER BY year DESC, month
-
+```
 All months in the second half of the year where average daily trading volume was below 10,000,000:
 ```
 SELECT year, month
@@ -347,20 +347,20 @@ WHERE month BETWEEN 7 AND 12
 GROUP BY month, year
 HAVING AVG(volume) < 10000000
 ORDER BY year DESC, month
-
+```
 A list of all calendar months by average daily trading volume (so only 12 rows), sorted from highest to lowest:
 ```
 SELECT month, AVG(volume) AS volume_avg
   FROM tutorial.aapl_historical_stock_price
 GROUP BY month
 ORDER BY volume_avg DESC
-
+```
 Count how many unique months there are in the data set (should equal 12):
 ```
 SELECT COUNT(DISTINCT month) AS unique_months
   FROM tutorial.aapl_historical_stock_price
 ```
-Does equal 12'
+Does equal 12
 
 Count how many unique years there are in the data set:
 ```
