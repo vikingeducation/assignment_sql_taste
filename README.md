@@ -410,3 +410,74 @@ SELECT * from (
       ORDER BY year ) as test
 where quarter = 'Q4';
 ```
+
+
+
+
+########## benn.college_football_players and benn.college_football_teams
+
+The most common home town of football players
+```
+select hometown, count(hometown)
+  from benn.college_football_players 
+  where hometown NOT IN ('--')
+  group by hometown
+  order by count desc
+  LIMIT 1;
+```
+The total number of players in each of their Freshmen, Sophomore, Junior or Senior years (4 rows)
+```
+SELECT year, count(*)
+FROM benn.college_football_players 
+  GROUP BY year;
+```
+The total number of players in each position
+```
+SELECT position, count(*)
+FROM benn.college_football_players 
+  GROUP BY position;
+```
+The average height of quarterbacks
+```
+SELECT avg(height)
+  FROM benn.college_football_players 
+  WHERE position = 'QB';
+```
+The average height of each position
+```
+SELECT position, AVG(height)
+  FROM benn.college_football_players 
+  GROUP BY position;
+```
+Return 100 football players and which conference they play for
+```
+SELECT position, AVG(height)
+  FROM benn.college_football_players 
+  GROUP BY position;
+```
+The heaviest football player in the SEC
+```
+SELECT fp.weight, fp.player_name, ft.conference
+  FROM benn.college_football_players fp
+  JOIN benn.college_football_teams ft 
+  ON fp.id = ft.id
+  WHERE ft.conference = 'SEC'
+  GROUP BY fp.player_name, ft.conference, fp.weight
+  ORDER BY fp.weight desc
+  LIMIT 1;
+```
+The top 5 heaviest football players in each conference
+```
+```
+The most common home state of players by conference
+```
+```
+The average height of football players in each conference
+```
+```
+The count of football players in the top 100 of weight who belong to each division
+```
+```
+All players whose home state is Kansas but who went to a school in Missouri
+```
+```
