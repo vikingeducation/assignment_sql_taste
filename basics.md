@@ -139,9 +139,7 @@
   ```
   SELECT *
     FROM tutorial.billboard_top_100_year_end
-    WHERE artist = 'Rolling Stones'
-    OR artist = 'Elvis Presley'
-    OR artist = 'Van Halen'
+    WHERE artist IN ('Rolling Stones', 'Elvis Presley', 'Van Halen')
   ```
 
 7. Which artist has had the most appearances on the top 100 list?
@@ -152,7 +150,7 @@ Madonna and Elvis Presley
   SELECT artist, COUNT(artist) AS artist_count
     FROM tutorial.billboard_top_100_year_end
     GROUP BY artist
-    ORDER BY COUNT(artist) DESC
+    ORDER BY artist_count DESC
   ```
 
 8. Which artist has had the most #1 hits? How many?
@@ -160,7 +158,7 @@ Madonna and Elvis Presley
 Beatles and Elvis Presley
 
   ```
-  SELECT artist, COUNT(artist) AS artist_count
+  SELECT artist, COUNT(artist) AS artist_with_1_hits
     FROM tutorial.billboard_top_100_year_end
     WHERE year_rank = 1
     GROUP BY  artist
@@ -182,8 +180,8 @@ Beatles and Elvis Presley
   SELECT *
     FROM tutorial.billboard_top_100_year_end
     WHERE year BETWEEN 1990 AND 1999
-    AND "group" ILIKE '%madonna%'
-    AND year_rank NOT BETWEEN 10 AND 100
+    AND artist = 'Madonna'
+    AND year_rank < 10
   ```
 
 11. All rows from 1985 which do not include Madonna or Phil Collins in the group.
