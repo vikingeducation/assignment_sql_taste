@@ -14,9 +14,9 @@ SELECT *
 
 Kelsey
 
-==========================================
+==================================================
 tutorial.us_housing_units
-==========================================
+==================================================
 
 10 results with information on all columns:
 SELECT *
@@ -73,9 +73,9 @@ SELECT south * 100 / ( south + west + midwest + northeast ) AS "South Percent",
   FROM tutorial.us_housing_units
 WHERE year >= 1990
 
-==========================================
+==================================================
 tutorial.billboard_top_100_year_end
-==========================================
+==================================================
 
 All rows where Elvis Presley had a song on the top 100 charts:
 SELECT *
@@ -166,3 +166,58 @@ SELECT *
   FROM tutorial.billboard_top_100_year_end
 WHERE "year" >= 1990 AND "year_rank" <= 3
 ORDER BY "year_rank", "year"
+
+==================================================
+tutorial.billboard_top_100_year_end (Intermediate)
+==================================================
+
+What is the highest position ever reached by Phil Collins?
+SELECT MIN(year_rank)
+  FROM tutorial.billboard_top_100_year_end
+WHERE artist = 'Phil Collins'
+
+Highest position = 5
+
+What is the average position reached by Michael Jackson?
+SELECT AVG(year_rank)
+  FROM tutorial.billboard_top_100_year_end
+WHERE artist = 'Michael Jackson'
+
+Average position = 46
+
+Madonna's average position when she actually reached the top 10:
+SELECT AVG(year_rank)
+  FROM tutorial.billboard_top_100_year_end
+WHERE artist = 'Madonna' AND year_rank <= 10
+
+Average position = 6
+
+List the top 10 artists based on their number of appearances on this list (and what that number is) since 1985
+
+SELECT artist, COUNT(*) AS artist_count
+  FROM tutorial.billboard_top_100_year_end
+GROUP BY artist
+ORDER BY artist_count DESC
+
+Madonna: 36
+Elvis Presley: 36
+Rihanna: 33
+Mariah Carey: 33
+Ludacris: 28
+Elton John: 28
+Beatles: 27
+Michael Jackson: 26
+Lil Wayne: 25
+R. Kelly: 25
+
+The total count of top 10 hits written by either Elvis, Madonna, the Beatles, or Elton John:
+SELECT artist, COUNT(*) AS artist_count
+  FROM tutorial.billboard_top_100_year_end
+WHERE artist IN ('Elvis Presley', 'Madonna', 'Beatles', 'Elton John')
+GROUP BY artist
+
+Total is 127
+
+==================================================
+
+==================================================
