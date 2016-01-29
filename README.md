@@ -103,3 +103,71 @@ Billboard
   SELECT *
   FROM tutorial.billboard_top_100_year_end
   WHERE artist IN ( 'Elvis Presley', 'Rolling Stones', 'Van Halen' )
+
+7.
+  SELECT artist,
+  COUNT(artist)
+  FROM tutorial.billboard_top_100_year_end
+  GROUP BY artist
+  ORDER BY count DESC
+
+  Answer: 'Madonna', 'Elvis Presley'
+
+8.
+  SELECT artist,
+  COUNT(artist)
+  FROM tutorial.billboard_top_100_year_end
+  WHERE year_rank = 1
+  GROUP BY artist
+  ORDER BY count DESC
+
+  Answer: 'Beatles', 'Elvis Presley'
+
+9.
+  SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  where year = 1970
+  AND (year_rank BETWEEN 10 AND 20)
+
+10.
+  SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE artist ILIKE '%madonna%'
+  AND year BETWEEN 1990 AND 1999
+  AND NOT year_rank BETWEEN 10 AND 100
+
+11.
+  SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE year = 1985
+  AND NOT ("group" ILIKE '%madonna%' 
+  OR "group" ILIKE '%phil collins%')
+
+12.
+  SELECT song_name
+  FROM tutorial.billboard_top_100_year_end
+  WHERE year_rank = 1
+
+13.
+  SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE artist IS NULL
+
+14.
+  SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE artist ILIKE '%madonna%'
+  ORDER BY year_rank
+
+15.
+  SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE artist ILIKE '%madonna%'
+  ORDER BY year, year_rank
+
+16.
+  SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE year >= 1990
+  AND year_rank <= 3
+  ORDER BY year_rank, year
