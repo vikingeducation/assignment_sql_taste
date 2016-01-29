@@ -219,7 +219,7 @@ SELECT AVG(year_rank)
   FROM tutorial.billboard_top_100_year_end
   WHERE artist = 'Michael Jackson'
 
-3. Madonna's average position when she actually reached the top 
+3. Madonna's average position when she actually reached the top 10
 
 SELECT AVG(year_rank)
   FROM tutorial.billboard_top_100_year_end
@@ -245,100 +245,154 @@ SELECT artist, COUNT(1)
   GROUP BY artist
   ORDER BY COUNT DESC
 
+##### db has 'Beatles' but not 'The Beatles'
+
 
 aapl_historical_stock_price
 
-The count of days when Apple traded in a range that was larger than $5
+1. The count of days when Apple traded in a range that was larger than $5
 
 SELECT COUNT(1)
   FROM tutorial.aapl_historical_stock_price 
-  WHERE high > 5
+  WHERE high - low > 5
 
-The highest daily trading range that Apple stock achieved in 2012
+2. The highest daily trading range that Apple stock achieved in 2012
 
-SELECT MAX(high)
+SELECT MAX(high - low)
   FROM tutorial.aapl_historical_stock_price 
   WHERE year = 2012
 
-The average price for all days when Apple's trading volume exceeded 10,000,000 shares.
+3. The average price for all days when Apple's trading volume exceeded 10,000,000 shares.
 
 SELECT AVG(close)
   FROM tutorial.aapl_historical_stock_price 
   WHERE volume > 10000000
 
-The number of trading days in each month of the year 2012
+4. The number of trading days in each month of the year 2012
 
 SELECT year, month, COUNT(1)
   FROM tutorial.aapl_historical_stock_price
   WHERE year = 2012
   GROUP BY year, month
 
-
-The maximum price Apple traded at during each year of the data set
+5. The maximum price Apple traded at during each year of the data set
 
 SELECT year, MAX(close)
   FROM tutorial.aapl_historical_stock_price 
   GROUP BY year
 
+6. The average price and trading volume on each calendar month across the full data set (this should return only 12 rows, one for each month!)
 
-The average price and trading volume on each calendar month across the full data set (this should return only 12 rows, one for each month!)
+SELECT month, AVG(close), AVG (volume)
+  FROM tutorial.aapl_historical_stock_price 
+  GROUP BY month
 
+7. The average price for each month and year of data since 2008, ordered by years descending and months ascending.
 
-
-The average price for each month and year of data since 2008, ordered by years descending and months ascending.
-
-SELECT year, month, AVG(close), AVG(volume)
+SELECT year, month, AVG(close)
   FROM tutorial.aapl_historical_stock_price
   WHERE year > 2008
   GROUP by year, month
   ORDER BY year DESC, month
 
-
-The average price of days with a trading volume above 25,000,000 shares (just 1 row)
+8. The average price of days with a trading volume above 25,000,000 shares (just 1 row)
 
 SELECT AVG(close)
   FROM tutorial.aapl_historical_stock_price
   WHERE volume > 25000000
 
-The average price on all months with an average daily trading volume above 10,000,000 shares.
+9. The average price on all months with an average daily trading volume above 10,000,000 shares.
 
 SELECT year, month, AVG(close)
   FROM tutorial.aapl_historical_stock_price
   GROUP BY year, month
   HAVING AVG(volume) > 10000000
 
-The lowest and highest prices that Apple stock achieved between 2005 and 2010 (inclusive).
+10. The lowest and highest prices that Apple stock achieved between 2005 and 2010 (inclusive).
 
-SELECT year, MAX(high), MIN(low)
+SELECT MAX(high), MIN(low)
   FROM tutorial.aapl_historical_stock_price
   WHERE year BETWEEN 2005 AND 2010
-  GROUP BY year
 
-The average daily trading range in months where the stock moved more than $25 (open of month to close of month)
-All months in the second half of the year where average daily trading volume was below 10,000,000.
-A list of all calendar months by average daily trading volume (so only 12 rows), sorted from highest to lowest.
+11. The average daily trading range in months where the stock moved more than $25 (open of month to close of month)
 
-Count how many unique months there are in the data set (should equal 12)
+SELECT year, month, AVG(high - low)
+    HAVING MAX(high) - MIN(low) > 25
+    GROUP year, month
+
+12. All months in the second half of the year where average daily trading volume was below 10,000,000.
+
+SELECT year, month
+    WHERE month >= 7
+    HAVING AVG(volume) < 10000000
+    GROUP year, month
+
+13. A list of all calendar months by average daily trading volume (so only 12 rows), sorted from highest to lowest.
+
+SELECT month, AVG(volume) as avg
+  FROM tutorial.aapl_historical_stock_price
+  GROUP BY month
+  ORDER BY avg DESC
+  
+14. Count how many unique months there are in the data set (should equal 12)
 
 SELECT COUNT(DISTINCT month)
   FROM tutorial.aapl_historical_stock_price
 
-Count how many unique years there are in the data set
+15. Count how many unique years there are in the data set
 
 SELECT COUNT(DISTINCT year)
   FROM tutorial.aapl_historical_stock_price
 
-Count how many unique prices there are in the data set
+16. Count how many unique prices there are in the data set
 
 SELECT COUNT(DISTINCT close)
   FROM tutorial.aapl_historical_stock_price
 
-Return the percentage of unique "open" prices compared to all open prices in the data set
+17. Return the percentage of unique "open" prices compared to all open prices in the data set
 
-A listing of all months by their average daily trading volume and a classification that puts this volume into the following categories: "Low" = below 10MM, "Medium" = 10-25 MM, "High" = above 25MM
+SELECT 100 * ((COUNT(DISTINCT open) / (COUNT(open) AS float))
+  FROM tutorial.aapl_historical_stock_price        
 
+18. A listing of all months by their average daily trading volume and a classification that puts this volume into the following categories: "Low" = below 10MM, "Medium" = 10-25 MM, "High" = above 25MM
 
-A listing of average monthly price plus which quarter of the year they are in (e.g. "Q2" or "Q4").
+SELECT year, month, AVG(volume),
+    CASE WHEN AVG(volume) < 10000000 THEN 'Low'
+    CASE WHEN AVG(volume)  BETWEEN 10000000 AND 25000000 THEN 'Med'
+    CASE WHEN AVG(volume)  > 25000000 THEN 'Hi'
+        END AS trd_volume
+  FROM tutorial.aapl_historical_stock_price        
+  GROUP BY year, month
+  ORDER BY trd_volume
+
+19. A listing of average monthly price plus which quarter of the year they are in (e.g. "Q2" or "Q4").
 This same listing filtered for only Q4 (use the new column not the months explicitly as part of this filtering).
+
+
+SELECT year, month, AVG(volume),
+    CASE WHEN month BETWEEN 1 AND 3 THEN 'Q1'
+    CASE WHEN month BETWEEN 4 AND 6 THEN 'Q2'
+    CASE WHEN month BETWEEN 7 AND 9 THEN 'Q3'
+    ELSE 'Q4'
+      END as year_quarter
+
+    FROM tutorial.aapl_historical_stock_price        
+    GROUP BY year, month
+    ORDER BY year
+
+
+SELECT * from ( 
+    SELECT year, month, AVG(volume),
+        CASE WHEN month BETWEEN 10 AND 12 THEN 'Q4'
+          END as year_quarter
+
+        FROM tutorial.aapl_historical_stock_price        
+        GROUP BY year, month
+        ORDER BY year
+        )
+    where year_quarter = 'Q4'
+
+
+
 
 
