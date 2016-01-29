@@ -375,7 +375,7 @@ Return the percentage of unique "open" prices compared to all open prices in the
 ```
 -- 2942 distinct, 3541 total
 SELECT 
-  100.0* (COUNT(DISTINCT(open)) / CAST(COUNT(open) AS float))
+  100 * (COUNT(DISTINCT(open)) / CAST(COUNT(open) AS float))
   FROM tutorial.aapl_historical_stock_price;
 ```
 A listing of all months by their average daily trading volume and a classification that puts this volume into the following categories: "Low" = below 10MM, "Medium" = 10-25 MM, "High" = above 25MM
@@ -403,10 +403,10 @@ This same listing filtered for only Q4 (use the new column not the months explic
 ```
 SELECT * from (
     SELECT month, year, 
-      CASE WHEN month BETWEEN 7 AND 9 THEN 'Q3' 
+      CASE WHEN month BETWEEN 10 AND 12 THEN 'Q4' 
         END AS quarter
       FROM tutorial.aapl_historical_stock_price
       GROUP BY year, month
       ORDER BY year ) as test
-where quarter = 'Q3';
+where quarter = 'Q4';
 ```
