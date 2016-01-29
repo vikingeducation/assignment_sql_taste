@@ -227,7 +227,7 @@ SELECT artist, count(artist)
   FROM tutorial.billboard_top_100_year_end 
   WHERE year >= 1985
   GROUP BY artist 
-  ORDER BY count(artist) DESC
+  ORDER BY count DESC
   LIMIT 10;
 ```
 The total count of top 10 hits written by either Elvis, Madonna, the Beatles, or Elton John
@@ -322,10 +322,11 @@ The average daily trading range in months where the stock moved more than $25 (o
 ```
 -- not 100% sure what 'trading range' is
 -- i'm treating it as (high - low)
-SELECT avg(high-low)
+SELECT month, year, avg(high-low) as range
   FROM tutorial.aapl_historical_stock_price
-  GROUP BY high, low
-  HAVING (max(high) - min(low)) > 25;
+  GROUP BY high, low, month, year
+  HAVING (max(high) - min(low)) > 25
+  ORDER BY year;
 ```
 All months in the second half of the year where average daily trading volume was below 10,000,000.
 ```
@@ -379,10 +380,33 @@ SELECT
 ```
 A listing of all months by their average daily trading volume and a classification that puts this volume into the following categories: "Low" = below 10MM, "Medium" = 10-25 MM, "High" = above 25MM
 ```
+SELECT avg(volume), month, year,
+  CASE WHEN avg(volume) < 10000000 THEN 'Low'
+       WHEN avg(volume) BETWEEN 10000000 AND 25000000 THEN 'Medium'
+       ELSE 'High' END AS trading_volume
+  FROM tutorial.aapl_historical_stock_price
+  GROUP BY year, month
+  ORDER BY trading_volume;
 ```
 A listing of average monthly price plus which quarter of the year they are in (e.g. "Q2" or "Q4").
 ```
+SELECT avg((high+low)/2), month, year,
+  CASE WHEN month BETWEEN 1 AND 3 THEN 'Q1'
+       WHEN month BETWEEN 4 AND 6 THEN 'Q2'
+       WHEN month BETWEEN 7 AND 9 THEN 'Q3'
+       ELSE 'Q4' END AS quarter
+  FROM tutorial.aapl_historical_stock_price
+  GROUP BY year, month
+  ORDER BY year;
 ```
 This same listing filtered for only Q4 (use the new column not the months explicitly as part of this filtering).
 ```
+SELECT * from (
+    SELECT month, year, 
+      CASE WHEN month BETWEEN 7 AND 9 THEN 'Q3' 
+        END AS quarter
+      FROM tutorial.aapl_historical_stock_price
+      GROUP BY year, month
+      ORDER BY year ) as test
+where quarter = 'Q3';
 ```
