@@ -1,0 +1,73 @@
+tutorial.us_housing_units
+
+Tip: You can use CMD + / to comment out multiple lines at a time in the SQL editor just like in your text editor
+
+1. 10 results with information on all columns
+Housing starts in the Midwest
+
+select *
+  FROM tutorial.us_housing_units
+WHERE "midwest" IS NOT NULL
+LIMIT 10
+
+2. All housing starts in December since 1985
+
+select *
+  FROM tutorial.us_housing_units
+WHERE "month_name" = 'December'
+  AND year >= 1985
+
+3. All housing starts in the second half of the year since 1990
+
+select *
+  FROM tutorial.us_housing_units
+WHERE "month" > 6
+  AND year >= 1990 
+
+4. All rows where housing starts were above 30,000 in the South region
+
+select *
+  FROM tutorial.us_housing_units
+WHERE "south" > 30
+
+5. The sum of housing starts across all regions for each row
+
+select  *,
+        south + west + midwest + northeast AS "sum"
+FROM tutorial.us_housing_units
+
+6. All rows where the sum of all housing starts is above 70,000 Note: You can't use an alias in a WHERE clause.
+
+select  *
+FROM tutorial.us_housing_units
+  WHERE south + west + midwest + northeast > 70
+
+7. All rows where the sum of all housing starts is between 50-80k
+
+select  *
+FROM tutorial.us_housing_units
+  WHERE south + west + midwest + northeast BETWEEN 50 AND 80
+
+8. The average of all housing starts across all regions for each row
+
+select  *,
+        (south + west + midwest + northeast)/4 AS "average"
+FROM tutorial.us_housing_units
+
+9. All rows where the housing starts in the South are above the sum of the other three regions
+
+select  *
+FROM tutorial.us_housing_units
+  WHERE south > west + midwest + northeast
+
+10. The percentage of housing starts that occur in each region since 1990 Note: Use an alias to title the new columns appropriately
+
+select  *,
+  south/(south + west + midwest + northeast)*100 AS "south_%",
+  west/(south + west + midwest + northeast)*100 AS "west_%",
+  midwest/(south + west + midwest + northeast)*100 AS "midwest_%",
+  northeast/(south + west + midwest + northeast)*100 AS "northeast%"
+FROM tutorial.us_housing_units
+  WHERE year >= 1990
+
+

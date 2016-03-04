@@ -1,0 +1,112 @@
+tutorial.billboard_top_100_year_end
+
+Note: Use single quotes ' instead of double quotes " for LIKE and similar queries since the Mode tool is very particular about its syntax. Double quotes are used to specify column names, so you might get a "column XYZ does not exist" error if you mess this up.
+
+1. All rows where Elvis Presley had a song on the top 100 charts
+
+select *
+  FROM tutorial.billboard_top_100_year_end
+WHERE "group" ILIKE '%Elvis Presley%'
+
+2. All rows where the artist's name contained "Tony" (not case sensitive)
+
+select *
+  FROM tutorial.billboard_top_100_year_end
+WHERE "artist" ILIKE '%tony%'
+
+3. All rows where the song title contained the word "love" in any way
+
+select *
+  FROM tutorial.billboard_top_100_year_end
+WHERE "song_name" ILIKE '%love%'
+
+4. All rows where the artist's name begins with the letter "A"
+
+select *
+  FROM tutorial.billboard_top_100_year_end
+WHERE "artist" ILIKE '%A'
+
+5. The top 3 songs from each year between 1960-1969
+
+select *
+  FROM tutorial.billboard_top_100_year_end
+WHERE "year_rank" BETWEEN 1 AND 3 AND
+"year" BETWEEN 1960 AND 1969
+
+6. All rows where either Elvis Presley, The Rolling Stones, or Van Halen were the artist
+
+select *
+  FROM tutorial.billboard_top_100_year_end
+WHERE "artist" IN ('Elvis Presley', 'Rolling Stones', 'Van Halen')
+
+7. Which artist has had the most appearances on the top 100 list?
+
+SELECT "artist"
+  FROM tutorial.billboard_top_100_year_end
+  GROUP BY "artist"
+  ORDER BY COUNT("artist") DESC
+  LIMIT 1
+
+8. Which artist has had the most #1 hits? How many?
+
+SELECT "artist"
+  FROM tutorial.billboard_top_100_year_end
+  WHERE year_rank = 1
+  GROUP BY "artist"
+  ORDER BY COUNT("artist") DESC
+  LIMIT 1
+
+9. All rows from 1970 where the songs were ranked 10-20th
+
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE "year" = 1970
+  AND "year_rank" BETWEEN 10 AND 20
+
+10. All rows from the 1990's where Madonna was not ranked 10-100th
+
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE "year" BETWEEN 1990 AND 1999
+  AND NOT ("group" ILIKE '%madonna%' AND "year_rank" BETWEEN 10 AND 100) 
+
+11. All rows from 1985 which do not include Madonna or Phil Collins in the group.
+
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE "year" = 1985
+  AND NOT ("group" ILIKE '%madonna%' OR "group" ILIKE '%phil collins%')
+
+11. All number 1 songs in the data set.
+
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE year_rank = 1
+
+12. All rows where the artist is not listed
+
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE artist IS NULL
+
+13. All of Madonna's top 100 hits ordered by their ranking (1 to 100)
+
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE "group" ILIKE '%madonna%'
+  ORDER BY year_rank
+
+14. All of Madonna's top 100 hits ordered by their ranking within each year
+
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE "group" ILIKE '%madonna%'
+  ORDER BY year, year_rank
+
+15. Every number 1 song since 1990 followed by every number 2 song since 1990 and number 3 song since 1990. (Hint: Multiple ordering)
+
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE year >= 1990
+  AND year_rank IN (1,2,3)
+  ORDER BY year_rank, year
