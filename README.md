@@ -1,3 +1,5 @@
+Assignment completed by [Stephen Mayeux](http://stephenmayeux.com)
+
 # assignment_sql_taste
 A delicious appetizer of SQL-ey goodness
 
