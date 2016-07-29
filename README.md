@@ -72,4 +72,32 @@ Part I
   group by "artist"
   order by "artist_occurrance" desc
   limit 1
-  8. 
+  8. SELECT artist,
+       count(artist) AS artist_count
+       FROM tutorial.billboard_top_100_year_end
+     WHERE year_rank = 1
+     GROUP BY artist
+     ORDER BY artist_count desc;
+  9. SELECT * FROM tutorial.billboard_top_100_year_end 
+       WHERE year = 1970
+       AND year_rank BETWEEN 10 AND 20;
+  10. SELECT * FROM tutorial.billboard_top_100_year_end (***)
+        WHERE
+          (year BETWEEN 1990 AND 1999)
+          AND 
+          NOT (artist ilike '%madonna%' AND year_rank BETWEEN 10 AND 100);
+  11. SELECT * FROM tutorial.billboard_top_100_year_end
+      WHERE year = 1985
+        AND NOT ("group" ilike '%madonna%')
+        AND NOT ("group" ilike '%phil collins%');
+  12. SELECT song_name FROM tutorial.billboard_top_100_year_end 
+      WHERE year_rank = 1;
+  13. SELECT * FROM tutorial.billboard_top_100_year_end 
+      WHERE artist IS NULL;
+  14. SELECT * FROM tutorial.billboard_top_100_year_end 
+      WHERE artist ilike '%madonna%'
+      ORDER BY year_rank;
+  15. SELECT * FROM tutorial.billboard_top_100_year_end 
+      WHERE artist ilike '%madonna%'
+      ORDER BY year, year_rank;
+  16. 
