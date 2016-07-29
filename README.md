@@ -42,6 +42,34 @@ SELECT *
   FROM tutorial.us_housing_units
   WHERE south + west + midwest + northeast > 70
 ```
+8)
+```sql
+SELECT *
+  FROM tutorial.us_housing_units 
+  WHERE (northeast + midwest + south + west) between 50 and 80
+```
+9)
+```sql
+SELECT *,
+  (northeast + midwest + south + west) / 4 as "Average"
+  FROM tutorial.us_housing_units
+```
+10)
+```sql
+SELECT *
+  FROM tutorial.us_housing_units
+  WHERE south > (northeast + midwest + west)
+```
+11)
+```sql
+SELECT *,
+  northeast / (northeast + midwest + west + south) * 100 as "Percent NorthEast",
+  midwest / (northeast + midwest + west + south) * 100 as "Percent MidWest",
+  west / (northeast + midwest + west + south) * 100 as "Percent West",
+  south / (northeast + midwest + west + south) * 100 as "Percent South"
+  FROM tutorial.us_housing_units
+  WHERE year >= 1990
+```
 
 
 Vishal and Matt
