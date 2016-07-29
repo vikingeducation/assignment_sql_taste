@@ -34,4 +34,42 @@ Part I
 9. SELECT * FROM tutorial.us_housing_units 
    WHERE (south + midwest + northeast + west)
     BETWEEN 50 AND 80;
-10. 
+10. SELECT *
+  FROM tutorial.us_housing_units 
+  where south > (west + midwest + northeast)
+11. SELECT year, 
+        month, 
+        (south /(south + west + midwest + northeast) *100) as south_percent,
+        (west /(south + west + midwest + northeast) *100) as west_percent,
+        (midwest /(south + west + midwest + northeast) *100) as midwest_percent,
+        (northeast /(south + west + midwest + northeast) *100) as northeast_percent
+  FROM tutorial.us_housing_units 
+  where south > (west + midwest + northeast)
+
+  Tutorial.billboard_top_100_year_end
+
+  1. SELECT *
+  FROM tutorial.billboard_top_100_year_end  
+  WHERE "artist" ilike '%elvis presley%'
+  2. SELECT *
+  FROM tutorial.billboard_top_100_year_end  
+  WHERE "artist" ilike '%tony%'
+  3. SELECT *
+  FROM tutorial.billboard_top_100_year_end  
+  WHERE "song_name" ilike '%love%'
+  4. SELECT *
+  FROM tutorial.billboard_top_100_year_end  
+  WHERE "artist" like 'A%'
+  5. SELECT *
+  FROM tutorial.billboard_top_100_year_end  
+  WHERE year between 1960 and 1969
+  AND year_rank <=3
+  6. SELECT *
+  FROM tutorial.billboard_top_100_year_end  
+  WHERE artist in ('Rolling Stones','Elvis Presley',  'Van Halen')
+  7. SELECT artist, COUNT( artist) as "artist_occurrance"
+  FROM tutorial.billboard_top_100_year_end 
+  group by "artist"
+  order by "artist_occurrance" desc
+  limit 1
+  8. 
