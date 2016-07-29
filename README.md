@@ -368,7 +368,7 @@ The average price on all months with an average daily trading volume above 10,00
 
 ```
 SELECT month, AVG((close+open)/2) AS average_price
-  FROM tutorial.aapl_historical_stock_price 
+  FROM tutorial.aapl_historical_stock_price
   GROUP BY month
   HAVING AVG(volume) > 10000000
 ```
@@ -377,7 +377,7 @@ The lowest and highest prices that Apple stock achieved between 2005 and 2010 (i
 
 ```
 SELECT year, MIN(low), MAX(high)
-  FROM tutorial.aapl_historical_stock_price 
+  FROM tutorial.aapl_historical_stock_price
   WHERE year BETWEEN 2005 AND 2010
   GROUP BY year
 ```
@@ -427,19 +427,44 @@ SELECT COUNT(DISTINCT(close))
 Return the percentage of unique "open" prices compared to all open prices in the data set
 
 ```
-SELECT COUNT(DISTINCT(close))
-  FROM tutorial.aapl_historical_stock_price
+
 ```
 
 A listing of all months by their average daily trading volume and a classification that puts this volume into the following categories: "Low" = below 10MM, "Medium" = 10-25 MM, "High" = above 25MM
 
 ```
-SELECT COUNT(DISTINCT(close))
+SELECT month,
+  AVG(volume),
+  CASE WHEN AVG(volume) < 10000000 THEN 'low'
+  WHEN AVG(volume) BETWEEN 10000000 and 25000000 THEN 'medium'
+  WHEN AVG(volume) > 25000000 THEN 'high'
+  ELSE null END
   FROM tutorial.aapl_historical_stock_price
+    GROUP BY month
 ```
 
 A listing of average monthly price plus which quarter of the year they are in (e.g. "Q2" or "Q4").
+
+```
+SELECT month,
+  AVG(close),
+  CASE WHEN month IN (1, 2, 3) THEN 'Q1'
+  WHEN month IN (4, 5, 6) THEN 'Q2'
+  WHEN month IN (7, 8, 9) THEN 'Q3'
+  WHEN month IN (10, 11, 12) THEN 'Q4'
+  ELSE null END AS quarter
+  FROM tutorial.aapl_historical_stock_price
+    GROUP BY month
+    ORDER BY month
+```
+
+
 This same listing filtered for only Q4 (use the new column not the months explicitly as part of this filtering).
+
+```
+
+```
+
 
 ### benn.college_football_players and benn.college_football_teams
 
