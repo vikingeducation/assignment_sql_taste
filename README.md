@@ -104,17 +104,94 @@ tutorial.billboard_top_100_year_end
 Note: Use single quotes ' instead of double quotes " for LIKE and similar queries since the Mode tool is very particular about its syntax. Double quotes are used to specify column names, so you might get a "column XYZ does not exist" error if you mess this up.
 
 1. All rows where Elvis Presley had a song on the top 100 charts
-2. 
-All rows where the artist's name contained "Tony" (not case sensitive)
-All rows where the song title contained the word "love" in any way
-All rows where the artist's name begins with the letter "A"
-The top 3 songs from each year between 1960-1969
-All rows where either Elvis Presley, The Rolling Stones, or Van Halen were the artist
-Which artist has had the most appearances on the top 100 list?
-Which artist has had the most #1 hits? How many?
-All rows from 1970 where the songs were ranked 10-20th
-All rows from the 1990's where Madonna was not ranked 10-100th
-All rows from 1985 which do not include Madonna or Phil Collins in the group.
+
+	```sql
+	SELECT *
+		FROM tutorial.billboard_top_100_year_end
+		WHERE "group" LIKE '%Elvis%'
+	```
+2. All rows where the artist's name contained "Tony" (not case sensitive)
+
+	```sql
+	SELECT *
+		FROM tutorial.billboard_top_100_year_end
+		WHERE artist ILIKE '%Tony%'
+	```
+
+3. All rows where the song title contained the word "love" in any way
+
+	```sql
+		SELECT *
+			FROM tutorial.billboard_top_100_year_end
+			WHERE song_name ILIKE '%love%'
+	```
+
+4. All rows where the artist's name begins with the letter "A"
+
+	```sql
+			SELECT *
+				FROM tutorial.billboard_top_100_year_end
+				WHERE artist LIKE 'A%'
+	```
+
+
+5. The top 3 songs from each year between 1960-1969
+
+	```sql
+			SELECT *
+				FROM tutorial.billboard_top_100_year_end
+				WHERE year_rank < 4 AND year BETWEEN 1960 AND 1969
+	```
+
+6. All rows where either Elvis Presley, The Rolling Stones, or Van Halen were the artist
+
+
+	```sql
+			SELECT *
+				FROM tutorial.billboard_top_100_year_end
+				WHERE artist IN ('Elvis Presley', 'The Rolling Stones', 'Van Halen')
+	```
+
+7. Which artist has had the most appearances on the top 100 list?
+
+	```sql
+			SKIP THIS MOTHERFUCKER
+	```
+
+8. Which artist has had the most #1 hits? How many?
+
+	```sql
+			SELECT *
+				FROM tutorial.billboard_top_100_year_end
+				WHERE year_rank = 1
+				ORDER BY "group" desc
+	```
+	
+9. All rows from 1970 where the songs were ranked 10-20th
+
+	```sql
+			SELECT *
+				FROM tutorial.billboard_top_100_year_end
+				WHERE year_rank BETWEEN 10 AND 20 AND year = 1970
+	```
+
+10. All rows from the 1990's where Madonna was not ranked 10-100th
+
+	```sql
+			SELECT *
+				FROM tutorial.billboard_top_100_year_end
+				WHERE artist ILIKE '%Madonna%' AND (year_rank NOT BETWEEN 10 AND 100) AND year = 1990
+	```
+
+11. All rows from 1985 which do not include Madonna or Phil Collins in the group.
+	
+	```sql
+			SELECT *
+				FROM tutorial.billboard_top_100_year_end
+				WHERE artist NOT IN ('Madonna', 'Phil Collins') AND year = 1985
+	```
+
+
 All number 1 songs in the data set.
 All rows where the artist is not listed
 All of Madonna's top 100 hits ordered by their ranking (1 to 100)
