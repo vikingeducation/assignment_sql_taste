@@ -387,12 +387,57 @@ The average daily trading range in months where the stock moved more than $25 (o
 
 
 All months in the second half of the year where average daily trading volume was below 10,000,000.
+```
+SELECT month, CASE WHEN AVG(volume) < 10000000 THEN 'over'
+              ELSE 'nope' END AS volume_avg
+  FROM tutorial.aapl_historical_stock_price
+  WHERE month >= 7
+  GROUP BY 1
+```
 A list of all calendar months by average daily trading volume (so only 12 rows), sorted from highest to lowest.
+
+```
+SELECT month, AVG(volume) AS avg_vol
+  FROM tutorial.aapl_historical_stock_price
+  GROUP BY month
+  ORDER BY avg_vol DESC
+```
+
 Count how many unique months there are in the data set (should equal 12)
+
+```
+SELECT COUNT(DISTINCT(month))
+  FROM tutorial.aapl_historical_stock_price
+```
+
 Count how many unique years there are in the data set
+
+```
+SELECT COUNT(DISTINCT(year))
+  FROM tutorial.aapl_historical_stock_price
+```
+
 Count how many unique prices there are in the data set
+
+```
+SELECT COUNT(DISTINCT(close))
+  FROM tutorial.aapl_historical_stock_price
+```
+
 Return the percentage of unique "open" prices compared to all open prices in the data set
+
+```
+SELECT COUNT(DISTINCT(close))
+  FROM tutorial.aapl_historical_stock_price
+```
+
 A listing of all months by their average daily trading volume and a classification that puts this volume into the following categories: "Low" = below 10MM, "Medium" = 10-25 MM, "High" = above 25MM
+
+```
+SELECT COUNT(DISTINCT(close))
+  FROM tutorial.aapl_historical_stock_price
+```
+
 A listing of average monthly price plus which quarter of the year they are in (e.g. "Q2" or "Q4").
 This same listing filtered for only Q4 (use the new column not the months explicitly as part of this filtering).
 
