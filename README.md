@@ -113,7 +113,7 @@ SELECT *
 ```
 SELECT *
   FROM tutorial.billboard_top_100_year_end
-  WHERE "group" ILIKE '%tony%' 
+  WHERE "group" ILIKE '%tony%'
 ```
 
 3. All rows where the song title contained the word "love" in any way
@@ -199,15 +199,183 @@ SELECT *
 ```
 
 12. All number 1 songs in the data set.
-13. All rows where the artist is not listed
-14. All of Madonna's top 100 hits ordered by their ranking (1 to 100)
-15. All of Madonna's top 100 hits ordered by their ranking within each year
-16. Every number 1 song since 1990 followed by every number 2 song since 1990 and number 3 song since 1990. (Hint: Multiple ordering)
-
-### Example
 
 ```
 SELECT *
-  FROM tutorial.us_housing_units
-  WHERE month = 1
+  FROM tutorial.billboard_top_100_year_end
+  WHERE year_rank = 1
 ```
+
+
+13. All rows where the artist is not listed
+
+```
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE artist IS null
+```
+
+14. All of Madonna's top 100 hits ordered by their ranking (1 to 100)
+
+```
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE artist ILIKE 'Madonna'
+  ORDER BY year_rank
+  LIMIT 100
+```
+
+15. All of Madonna's top 100 hits ordered by their ranking within each year
+
+```
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE artist ILIKE 'Madonna'
+  ORDER BY year, year_rank
+  LIMIT 100
+```
+
+16. Every number 1 song since 1990 followed by every number 2 song since 1990 and number 3 song since 1990. (Hint: Multiple ordering)
+
+```
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE year >= 1990
+  ORDER BY year_rank, year
+```
+
+### tutorial.billboard_top_100_year_end
+
+What is the highest position ever reached by Phil Collins?
+
+```
+SELECT MIN(year_rank)
+  FROM tutorial.billboard_top_100_year_end
+  WHERE artist = 'Phil Collins'
+```
+
+What is the average position reached by Michael Jackson?
+
+```
+SELECT AVG(year_rank)
+  FROM tutorial.billboard_top_100_year_end
+  WHERE artist = 'Michael Jackson'
+```
+
+Madonna's average position when she actually reached the top 10
+
+```
+SELECT AVG(year_rank)
+  FROM tutorial.billboard_top_100_year_end
+  WHERE artist ILIKE 'madonna%'
+  AND year_rank <= 10
+```
+
+List the top 10 artists based on their number of appearances on this list (and what that number is) since 1985
+
+```
+SELECT artist,
+  COUNT(artist) AS appearances
+  FROM tutorial.billboard_top_100_year_end
+  WHERE year >= 1985
+  GROUP BY artist
+  ORDER BY appearances DESC
+```
+
+The total count of top 10 hits written by either Elvis, Madonna, the Beatles, or Elton John
+
+```
+SELECT COUNT(1)
+  FROM tutorial.billboard_top_100_year_end
+  WHERE artist IN ('Elvis Presley', 'Madonna', 'Beatles', 'Elton John')
+  AND year_rank <= 10
+```
+
+### aapl_historical_stock_price
+
+The count of days when Apple traded in a range that was larger than $5
+
+```
+SELECT COUNT(1)
+  FROM tutorial.aapl_historical_stock_price
+  WHERE ((close - open) > 5)
+```
+
+The highest daily trading range that Apple stock achieved in 2012
+
+```
+SELECT MAX(close-open)
+  FROM tutorial.aapl_historical_stock_price
+  WHERE year = 2012
+```
+
+The average price for all days when Apple's trading volume exceeded 10,000,000 shares.
+
+```
+SELECT AVG((open+close)/2)
+  FROM tutorial.aapl_historical_stock_price
+  WHERE volume > 10000000
+```
+
+The number of trading days in each month of the year 2012
+
+```
+SELECT month, COUNT(*)
+  FROM tutorial.aapl_historical_stock_price
+  WHERE year = 2012
+  GROUP BY month
+  ORDER BY month
+```
+
+The maximum price Apple traded at during each year of the data set
+
+```
+SELECT year, MAX(high)
+  FROM tutorial.aapl_historical_stock_price
+  GROUP BY year
+  ORDER BY year
+```
+
+The average price and trading volume on each calendar month across the full data set (this should return only 12 rows, one for each month!)
+
+```
+SELECT month, AVG((close+open)/2) AS average_price,
+  AVG(volume) AS average_volume
+  FROM tutorial.aapl_historical_stock_price
+  GROUP BY month
+  ORDER BY month
+```
+
+The average price for each month and year of data since 2008, ordered by years descending and months ascending.
+The average price of days with a trading volume above 25,000,000 shares (just 1 row)
+The average price on all months with an average daily trading volume above 10,000,000 shares.
+The lowest and highest prices that Apple stock achieved between 2005 and 2010 (inclusive).
+The average daily trading range in months where the stock moved more than $25 (open of month to close of month)
+All months in the second half of the year where average daily trading volume was below 10,000,000.
+A list of all calendar months by average daily trading volume (so only 12 rows), sorted from highest to lowest.
+Count how many unique months there are in the data set (should equal 12)
+Count how many unique years there are in the data set
+Count how many unique prices there are in the data set
+Return the percentage of unique "open" prices compared to all open prices in the data set
+A listing of all months by their average daily trading volume and a classification that puts this volume into the following categories: "Low" = below 10MM, "Medium" = 10-25 MM, "High" = above 25MM
+A listing of average monthly price plus which quarter of the year they are in (e.g. "Q2" or "Q4").
+This same listing filtered for only Q4 (use the new column not the months explicitly as part of this filtering).
+
+### benn.college_football_players and benn.college_football_teams
+
+Note: To see the schemas for these tables listed on the left panel, you need to search for "benn" where it says "Search Mode Public Tables"... they are not listed under "Tutorial" automatically like the previous tables were.
+
+Note2: Mode uses a non-primary key "school_name" to join their tables here. You should really use primary keys wherever possible in your own data.
+
+The most common home town of football players
+The total number of players in each of their Freshmen, Sophomore, Junior or Senior years (4 rows)
+The total number of players in each position
+The average height of quarterbacks
+The average height of each position
+Return 100 football players and which conference they play for
+The heaviest football player in the SEC
+The top 5 heaviest football players in each conference
+The most common home state of players by conference
+The average height of football players in each conference
+The count of football players in the top 100 of weight who belong to each division
+All players whose home state is Kansas but who went to a school in Missouri
