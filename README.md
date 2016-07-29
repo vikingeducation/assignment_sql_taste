@@ -103,7 +103,8 @@ Tip: You can use CMD + / to comment out multiple lines at a time in the SQL edit
 tutorial.billboard_top_100_year_end
 Note: Use single quotes ' instead of double quotes " for LIKE and similar queries since the Mode tool is very particular about its syntax. Double quotes are used to specify column names, so you might get a "column XYZ does not exist" error if you mess this up.
 
-All rows where Elvis Presley had a song on the top 100 charts
+1. All rows where Elvis Presley had a song on the top 100 charts
+2. 
 All rows where the artist's name contained "Tony" (not case sensitive)
 All rows where the song title contained the word "love" in any way
 All rows where the artist's name begins with the letter "A"
