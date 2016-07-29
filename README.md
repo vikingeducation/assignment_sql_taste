@@ -1,3 +1,7 @@
+# assignment_sql_taste
+A delicious appetizer of SQL-ey goodness
+
+
 ## Census Housing Data
 1)
 ```sql
@@ -72,18 +76,22 @@ SELECT *,
 ```
 
 
+## tutorial.billboard_top_100_year_end
+
+1)
+```sql
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE artist LIKE '%Elvis%' OR "group" LIKE '%Elvis%'
+```
+2)
+```sql
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE artist ILIKE '%Tony%'
+```
+
+
+## Authors
 Vishal and Matt
 
-# assignment_sql_taste
-A delicious appetizer of SQL-ey goodness
-
-
-## Queries
-
-### Example
-
-```
-SELECT *
-  FROM tutorial.us_housing_units
-  WHERE month = 1
-```
