@@ -384,7 +384,13 @@ SELECT year, MIN(low), MAX(high)
 
 The average daily trading range in months where the stock moved more than $25 (open of month to close of month)
 
-
+```
+SELECT month, AVG(close-open)
+  FROM tutorial.aapl_historical_stock_price
+  GROUP BY month
+  HAVING MAX(high) - MIN(low) > 25
+  ORDER BY month
+```
 
 All months in the second half of the year where average daily trading volume was below 10,000,000.
 ```
@@ -426,8 +432,10 @@ SELECT COUNT(DISTINCT(close))
 
 Return the percentage of unique "open" prices compared to all open prices in the data set
 
+<!-- maybe? -->
 ```
-
+SELECT (COUNT(DISTINCT open)/COUNT(open))*100
+  FROM tutorial.aapl_historical_stock_price
 ```
 
 A listing of all months by their average daily trading volume and a classification that puts this volume into the following categories: "Low" = below 10MM, "Medium" = 10-25 MM, "High" = above 25MM
@@ -462,7 +470,19 @@ SELECT month,
 This same listing filtered for only Q4 (use the new column not the months explicitly as part of this filtering).
 
 ```
-
+SELECT * FROM
+(SELECT month,
+  AVG(close),
+  CASE WHEN month IN (1, 2, 3) THEN 'Q1'
+  WHEN month IN (4, 5, 6) THEN 'Q2'
+  WHEN month IN (7, 8, 9) THEN 'Q3'
+  WHEN month IN (10, 11, 12) THEN 'Q4'
+  ELSE null END AS quarter
+  FROM tutorial.aapl_historical_stock_price
+    GROUP BY month
+    ORDER BY month
+    ) as inner_table
+    WHERE quarter = 'Q4'
 ```
 
 
