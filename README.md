@@ -102,6 +102,55 @@ A delicious appetizer of SQL-ey goodness
       ORDER BY year_rank, year 
 ### Example
 
+INTERMEDIATE
+1. SELECT min(year_rank)
+  FROM tutorial.billboard_top_100_year_end 
+  WHERE artist = 'Phil Collins'
+2. SELECT avg(year_rank)
+  FROM tutorial.billboard_top_100_year_end 
+  WHERE artist = 'Michael Jackson'
+3.SELECT avg(year_rank)
+  FROM tutorial.billboard_top_100_year_end 
+  WHERE artist = 'Madonna' AND year_rank < 11
+4. SELECT artist,
+      COUNT(artist) AS count
+    FROM tutorial.billboard_top_100_year_end
+    WHERE year >=1985
+    GROUP by artist
+    ORDER by COUNT(artist) desc
+    LIMIT 10
+5. SELECT artist,
+      COUNT(artist) AS count
+    FROM tutorial.billboard_top_100_year_end
+    WHERE year_rank < 11 AND artist IN ('Elvis Presley','Madonna', 'Beatles', 'Elton John')
+    GROUP by artist
+6. SELECT count(date)
+    FROM tutorial.aapl_historical_stock_price 
+    WHERE high-low > 5
+7. SELECT max(high-low)
+    FROM tutorial.aapl_historical_stock_price 
+    WHERE year = 2012
+8. SELECT avg(high-low)
+    FROM tutorial.aapl_historical_stock_price 
+    WHERE volume > 10000000
+9. SELECT count(date), month
+    FROM tutorial.aapl_historical_stock_price 
+    WHERE year = 2012
+    GROUP BY month
+10. SELECT max(high), year
+    FROM tutorial.aapl_historical_stock_price 
+    GROUP BY year
+11. SELECT avg(high-low), avg(volume),  month
+    FROM tutorial.aapl_historical_stock_price 
+    GROUP BY month
+12. SELECT avg(high-low), month, year
+    FROM tutorial.aapl_historical_stock_price 
+    GROUP BY year, month
+    ORDER BY year DESC, month
+13. SELECT avg(high-low)
+    FROM tutorial.aapl_historical_stock_price 
+    WHERE volume > 25000000   
+
 ```
 SELECT *
   FROM tutorial.us_housing_units
