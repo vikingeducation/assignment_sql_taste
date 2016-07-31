@@ -6,67 +6,66 @@ Leo and Mike
 ## Queries
 
 ### tutorial.us_housing_units
-
-1. 10 results with information on all columns
+results with information on all columns
 ```sql
 SELECT *
   FROM tutorial.us_housing_units
   LIMIT 10
 ```
-2. Housing starts in the Midwest
+Housing starts in the Midwest
 ```sql
 SELECT midwest
   FROM tutorial.us_housing_units
 ```
-3. All housing starts in every December since 1985
+All housing starts in every December since 1985
 ```sql
 SELECT *
   FROM tutorial.us_housing_units
   Where month_name = 'December'
   AND year >= 1985
 ```
-4. All housing starts in the second half of the year since 1990
+All housing starts in the second half of the year since 1990
 ```sql
 SELECT *
   FROM tutorial.us_housing_units
   WHERE year >= 1990
   AND month >= 7
 ```
-5. All rows where housing starts were above 30,000 in the South region
+All rows where housing starts were above 30,000 in the South region
 ```sql
 SELECT *
   FROM tutorial.us_housing_units
   WHERE south > 30
 ```
-6. The sum of housing starts across all regions for each row
+The sum of housing starts across all regions for each row
 ```sql
 SELECT *, south + west + midwest + northeast AS "sum"
   FROM tutorial.us_housing_units
 ```
-7. All rows where the sum of all housing starts is above 70,000 Note: You can't use an alias in a WHERE clause.
+All rows where the sum of all housing starts is above 70,000 Note: You can't use an alias in a WHERE clause.
 ```sql
 SELECT *
   FROM tutorial.us_housing_units
   WHERE south + west + midwest + northeast > 70
 ```
-8. All rows where the sum of all housing starts is between 50-80k
+All rows where the sum of all housing starts is between 50-80k
 ```sql
 SELECT *
   FROM tutorial.us_housing_units
   WHERE south + west + midwest + northeast BETWEEN 50 AND 80
 ```
-9. The average of all housing starts across all regions for each row
+The average of all housing starts across all regions for each row
 ```sql
 SELECT *, (south+west+midwest+northeast)/4 AS "average"
   FROM tutorial.us_housing_units
 ```
-10. All rows where the housing starts in the South are above the sum of the other three regions
+All rows where the housing starts in the South are above the sum of the other three regions
 ```sql
 SELECT *
   FROM tutorial.us_housing_units
   WHERE west+midwest+northeast < south
 ```
-11. The percentage of housing starts that occur in each region since 1990 Note: Use an alias to title the new columns appropriately
+The percentage of housing starts that occur in each region since 1990 Note: Use an alias to title the new columns appropriately
 ```sql
 SELECT *,
   (south/(south+west+midwest+northeast)*100) AS south_percent,
@@ -79,44 +78,44 @@ SELECT *,
 
 ### tutorial.billboard_top_100_year_end
 
-1. All rows where Elvis Presley had a song on the top 100 charts
+All rows where Elvis Presley had a song on the top 100 charts
 ```sql
 SELECT *
   FROM tutorial.billboard_top_100_year_end
   WHERE "group" ILIKE '%elvis presley%'
 ```
-2. All rows where the artist's name contained "Tony" (not case sensitive)
+All rows where the artist's name contained "Tony" (not case sensitive)
 ```sql
 SELECT *
   FROM tutorial.billboard_top_100_year_end
   WHERE "group" ILIKE '%tony%'
 ```
-3. All rows where the song title contained the word "love" in any way
+All rows where the song title contained the word "love" in any way
 ```sql
 SELECT *
   FROM tutorial.billboard_top_100_year_end
   WHERE song_name ILIKE '%love%'
 ```
-4. All rows where the artist's name begins with the letter "A"
+All rows where the artist's name begins with the letter "A"
 ```sql
 SELECT *
   FROM tutorial.billboard_top_100_year_end
   WHERE artist LIKE 'A%'
 ```
-5. The top 3 songs from each year between 1960-1969
+The top 3 songs from each year between 1960-1969
 ```sql
 SELECT *
   FROM tutorial.billboard_top_100_year_end
   WHERE year_rank <= 3
   AND year BETWEEN 1960 AND 1969
 ```
-6. All rows where either Elvis Presley, The Rolling Stones, or Van Halen were the artist
+All rows where either Elvis Presley, The Rolling Stones, or Van Halen were the artist
 ```sql
 SELECT *
   FROM tutorial.billboard_top_100_year_end
   WHERE artist IN ('Elvis Presley', 'Rolling Stones', 'Van Halen')
 ```
-7. Which artist has had the most appearances on the top 100 list? Madonna..
+Which artist has had the most appearances on the top 100 list? Madonna..
 ```sql
 SELECT artist,
   COUNT(artist) AS artist_occurrence
@@ -124,7 +123,7 @@ SELECT artist,
   GROUP BY artist
   ORDER BY artist_occurrence DESC
 ```
-8. Which artist has had the most #1 hits? How many? Beatles and Elvis with 2
+Which artist has had the most #1 hits? How many? Beatles and Elvis with 2
 ```sql
 SELECT artist,
   COUNT(artist) AS artist_occurrence
@@ -133,14 +132,14 @@ SELECT artist,
   GROUP BY artist
   ORDER BY artist_occurrence DESC
 ```
-9. All rows from 1970 where the songs were ranked 10-20th
+All rows from 1970 where the songs were ranked 10-20th
 ```sql
 SELECT *
   FROM tutorial.billboard_top_100_year_end
   WHERE year = 1970
   AND year_rank BETWEEN 10 AND 20
 ```
-10. All rows from the 1990's where Madonna was not ranked 10-100th
+All rows from the 1990's where Madonna was not ranked 10-100th
 ```sql
 SELECT *
   FROM tutorial.billboard_top_100_year_end
@@ -148,7 +147,7 @@ SELECT *
   AND "group" not ILIKE '%madonna%'
   AND NOT WHERE year_rank > 10
 ```
-11. All rows from 1985 which do not include Madonna or Phil Collins in the group.
+All rows from 1985 which do not include Madonna or Phil Collins in the group.
 ```sql
 SELECT *
   FROM tutorial.billboard_top_100_year_end
@@ -156,19 +155,19 @@ SELECT *
   AND "group" NOT ILIKE '%madonna%'
   AND "group" NOT ILIKE '%phil collins%'
 ```
-12. All number 1 songs in the data set.
+All number 1 songs in the data set.
 ```sql
 SELECT *
   FROM tutorial.billboard_top_100_year_end
   WHERE year_rank = 1
 ```
-13. All rows where the artist is not listed
+All rows where the artist is not listed
 ```sql
 SELECT *
   FROM tutorial.billboard_top_100_year_end
   WHERE artist IS null
 ```
-14. All of Madonna's top 100 hits ordered by their ranking (1 to 100)
+All of Madonna's top 100 hits ordered by their ranking (1 to 100)
 ```sql
 SELECT *
   FROM tutorial.billboard_top_100_year_end
@@ -176,14 +175,14 @@ SELECT *
   ORDER BY year_rank
   LIMIT 100
 ```
-15. All of Madonna's top 100 hits ordered by their ranking within each year
+All of Madonna's top 100 hits ordered by their ranking within each year
 ```sql
 SELECT *
   FROM tutorial.billboard_top_100_year_end
   WHERE artist ILIKE 'Madonna'
   ORDER BY year, year_rank
 ```
-16. Every number 1 song since 1990 followed by every number 2 song since 1990 and number 3 song since 1990. (Hint: Multiple ordering)
+Every number 1 song since 1990 followed by every number 2 song since 1990 and number 3 song since 1990. (Hint: Multiple ordering)
 ```sql
 SELECT *
   FROM tutorial.billboard_top_100_year_end
@@ -428,6 +427,9 @@ Note: To see the schemas for these tables listed on the left panel, you need to 
 Note2: Mode uses a non-primary key "school_name" to join their tables here. You should really use primary keys wherever possible in your own data.
 
 The most common home town of football players
+
+
+
 The total number of players in each of their Freshmen, Sophomore, Junior or Senior years (4 rows)
 The total number of players in each position
 The average height of quarterbacks
