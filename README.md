@@ -368,9 +368,8 @@ SELECT COUNT(DISTINCT(close))
 
 Return the percentage of unique "open" prices compared to all open prices in the data set
 
-<!-- maybe? -->
 ```sql
-SELECT (COUNT(DISTINCT open)/COUNT(open))*100
+SELECT (100*COUNT(DISTINCT open)/COUNT(open)) percent
   FROM tutorial.aapl_historical_stock_price
 ```
 
