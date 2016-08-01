@@ -155,16 +155,20 @@ Note: Use single quotes ' instead of double quotes " for LIKE and similar querie
 7. Which artist has had the most appearances on the top 100 list?
 
 	```sql
-			SKIP THIS MOTHERFUCKER
+				SELECT COUNT(artist) as count_artist, artist
+				FROM tutorial.billboard_top_100_year_end
+				GROUP BY artist
+				ORDER BY count_artist desc
 	```
 
 8. Which artist has had the most #1 hits? How many?
 
 	```sql
-			SELECT *
+			SELECT COUNT(year_rank) as number_one, artist
 				FROM tutorial.billboard_top_100_year_end
 				WHERE year_rank = 1
-				ORDER BY "group" desc
+				GROUP BY artist
+				ORDER BY number_one desc
 	```
 	
 9. All rows from 1970 where the songs were ranked 10-20th
@@ -192,8 +196,36 @@ Note: Use single quotes ' instead of double quotes " for LIKE and similar querie
 	```
 
 
-All number 1 songs in the data set.
-All rows where the artist is not listed
-All of Madonna's top 100 hits ordered by their ranking (1 to 100)
-All of Madonna's top 100 hits ordered by their ranking within each year
-Every number 1 song since 1990 followed by every number 2 song since 1990 and number 3 song since 1990. (Hint: Multiple ordering)
+12. All number 1 songs in the data set.
+			SELECT song_name
+				FROM tutorial.billboard_top_100_year_end
+				WHERE year_rank = 1
+
+13. All rows where the artist is not listed
+			SELECT *
+				FROM tutorial.billboard_top_100_year_end
+				WHERE artist IS NULL
+
+14. All of Madonna's top 100 hits ordered by their ranking (1 to 100)
+
+			SELECT *
+				FROM tutorial.billboard_top_100_year_end
+				WHERE artist LIKE 'Madonna' AND year_rank < 101
+			  ORDER BY year_rank
+
+15. All of Madonna's top 100 hits ordered by their ranking within each year
+
+			SELECT year, year_rank, artist
+				FROM tutorial.billboard_top_100_year_end
+				WHERE artist LIKE 'Madonna' AND year_rank < 101
+				GROUP BY artist, year_rank, year
+			  ORDER BY year asc
+
+16. Every number 1 song since 1990 followed by every number 2 song since 1990 and number 3 song since 1990. (Hint: Multiple ordering)
+
+			SELECT *
+				FROM tutorial.billboard_top_100_year_end
+				WHERE year_rank < 3 AND year > 1989
+				GROUP BY year_rank, year, "group", artist, song_name, id
+			  ORDER BY year_rank asc
+			  
