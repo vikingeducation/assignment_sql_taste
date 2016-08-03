@@ -190,7 +190,7 @@ SELECT *
 SELECT *
   FROM tutorial.billboard_top_100_year_end
   WHERE artist ILIKE '%madonna%'
-  ORDER BY year_rank
+  ORDER BY year, year_rank
 
 16. Every number 1 song since 1990 followed by every number 2 song since 1990 and number 3 song since 1990. (Hint: Multiple ordering)
 
@@ -246,6 +246,8 @@ SELECT artist, COUNT(1)
   ORDER BY COUNT DESC
 
 ##### db has 'Beatles' but not 'The Beatles'
+
+
 
 
 aapl_historical_stock_price
