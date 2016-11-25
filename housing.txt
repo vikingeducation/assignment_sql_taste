@@ -242,15 +242,49 @@ ORDER BY range DESC
 LIMIT 1
 
 The average price for all days when Apple's trading volume exceeded 10,000,000 shares.
-
+SELECT ((SUM(high) + SUM(low)) / 2) / COUNT(*) AS total_sum
+FROM tutorial.aapl_historical_stock_price
+WHERE volume > 10000000
+  
 
 
 The number of trading days in each month of the year 2012
+SELECT month, COUNT(*)
+FROM tutorial.aapl_historical_stock_price
+WHERE year = 2012
+GROUP BY month
+ORDER BY month
+
 
 
 The maximum price Apple traded at during each year of the data set
+SELECT year, MAX(high)
+FROM tutorial.aapl_historical_stock_price
+GROUP BY year
+ORDER BY year
+
+
+
 The average price and trading volume on each calendar month across the full data set (this should return only 12 rows, one for each month!)
+SELECT month, AVG((high + low) / 2) AS average_price, 
+AVG(volume) AS average_volume
+FROM tutorial.aapl_historical_stock_price
+GROUP BY month
+ORDER BY month
+
+
+
+
 The average price for each month and year of data since 2008, ordered by years descending and months ascending.
+SELECT year, month, AVG((high + low) / 2) AS average_price
+FROM tutorial.aapl_historical_stock_price
+WHERE year >= 2008
+GROUP BY month, year
+ORDER BY year DESC, month
+
+
+
+
 The average price of days with a trading volume above 25,000,000 shares (just 1 row)
 The average price on all months with an average daily trading volume above 10,000,000 shares.
 The lowest and highest prices that Apple stock achieved between 2005 and 2010 (inclusive).
