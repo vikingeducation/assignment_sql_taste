@@ -74,3 +74,39 @@ FROM tutorial.housing_units_completed_us
 WHERE year >= 1990
 
 12.
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE "group" ILIKE '%elvis presley%'
+
+13.
+SELECT *
+FROM tutorial.billboard_top_100_year_end
+WHERE "artist" ILIKE '%tony%'
+
+14.
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE song_name ILIKE '%love%' OR song_name ILIKE '%loving%'
+
+  15.
+  SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE artist ILIKE 'a%'
+
+  16.
+  SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE year_rank <= 3
+  AND year BETWEEN 1960 AND 1969
+
+  17.
+  SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE artist IN ('Elvis Presley', 'Rolling Stones', 'Van Halen')
+
+  18.
+  SELECT artist,
+  COUNT(artist) AS "Number of Top Hits"
+  FROM tutorial.billboard_top_100_year_end
+  GROUP BY artist
+  ORDER BY "Number of Top Hits" DESC
