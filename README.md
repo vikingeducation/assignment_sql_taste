@@ -117,8 +117,8 @@ GROUP BY artist ORDER BY count DESC LIMIT 2;
 ```
 
 ```
-SELECT * FROM tutorial.billboard_top_100_year_end WHERE year_rank BETWEEN 10 AND
-20 AND year = 1970;
+SELECT * FROM tutorial.billboard_top_100_year_end WHERE (year_rank BETWEEN 10 AND
+20) AND year = 1970;
 ```
 
 ```
@@ -133,8 +133,8 @@ AND year BETWEEN 1990 AND 1999;
 ```
 SELECT *
 FROM tutorial.billboard_top_100_year_end
-WHERE year = 1985 AND "group" NOT ILIKE '%Madonna%' AND "group" NOT ILIKE '%Phil
-Collins%';
+WHERE year = 1985 AND ("group" NOT ILIKE '%Madonna%' AND "group" NOT ILIKE '%Phil
+Collins%)';
 ```
 
 ```
@@ -163,4 +163,123 @@ SELECT *
 FROM tutorial.billboard_top_100_year_end
 WHERE year >= 1990 AND year_rank <= 3
 ORDER BY year_rank, year;
+```
+
+```
+SELECT MIN(year_rank) FROM tutorial.billboard_top_100_year_end WHERE "group" ILIKE ('%Phil Collins%');
+```
+
+```
+SELECT AVG(year_rank)
+FROM tutorial.billboard_top_100_year_end
+WHERE artist = 'Michael Jackson';
+```
+
+```
+SELECT AVG(year_rank)
+FROM tutorial.billboard_top_100_year_end
+WHERE artist = 'Madonna' AND year_rank <= 10;
+```
+
+```
+SELECT artist, appearances
+FROM (
+  SELECT COUNT(artist) as appearances, artist
+  FROM tutorial.billboard_top_100_year_end
+  GROUP BY artist
+) appearance_count
+ORDER BY appearances DESC
+LIMIT 10;
+```
+
+```
+SELECT COUNT(DISTINCT(song_name)) as hits
+FROM tutorial.billboard_top_100_year_end
+WHERE ("group" ILIKE '%Madonna%'
+      OR "group" ILIKE '%Elton John%'
+      OR "group" ILIKE '%Beatles%'
+      OR "group" ILIKE '%Elvis Presley%')
+      AND year_rank <= 10;
+```
+
+##INTERMEDIATE aapl_historical_stock_price
+
+
+```
+SELECT COUNT(date)
+FROM tutorial.aapl_historical_stock_price
+WHERE (high - low) > 5;
+```
+
+```
+SELECT MAX((high - low))
+FROM tutorial.aapl_historical_stock_price
+WHERE year = 2012;
+```
+
+```
+SELECT AVG(((open + high + low + close) / 4))
+FROM tutorial.aapl_historical_stock_price
+WHERE volume > 10000000;
+```
+
+```
+SELECT AVG(month_count)
+FROM (
+      SELECT COUNT(month) as month_count
+      FROM tutorial.aapl_historical_stock_price
+      WHERE year = 2012
+      GROUP BY month
+      ) days_per_month
+;
+```
+
+```
+SELECT year, MAX(high)
+FROM tutorial.aapl_historical_stock_price
+GROUP BY year
+ORDER BY year;
+```
+
+```
+SELECT *
+FROM (
+  SELECT month, AVG((high + low + open + close)/4) as price, AVG(volume) as vol
+  FROM tutorial.aapl_historical_stock_price
+  GROUP BY month
+  ORDER BY month
+  ) monthly_avg
+WHERE vol > 10000000;
+```
+
+```
+SELECT year, month, AVG((high + low + open + close)/4) as price
+FROM tutorial.aapl_historical_stock_price
+GROUP BY month, year
+ORDER BY year DESC, month ASC;
+```
+
+```
+SELECT AVG((high + low + open + close)/4) as price
+FROM tutorial.aapl_historical_stock_price
+WHERE volume > 25000000;
+```
+
+```
+SELECT year, month, price
+FROM (
+        SELECT AVG(volume) as avg_vol, AVG((high + low + open + close)/4) as price, month, year
+        FROM tutorial.aapl_historical_stock_price
+        GROUP BY month, year
+      ) month_avg
+WHERE avg_vol > 10000000
+ORDER BY year, month;
+```
+
+```
+SELECT year, MIN(low) as lowest, MAX(high) as highest
+FROM tutorial.aapl_historical_stock_price
+WHERE year BETWEEN 2005 AND 2010
+GROUP BY year
+ORDER BY year;
 ```
