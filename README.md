@@ -1,6 +1,9 @@
 # assignment_sql_taste
 A delicious appetizer of SQL-ey goodness
 
+Jonathan Popenuck
+
+Jacob Tingley
 
 ## Queries
 
