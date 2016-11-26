@@ -13,6 +13,8 @@ SELECT *
   FROM tutorial.us_housing_units
   WHERE month = 1
 ```
+BASIC
+
 1.
 SELECT *
 FROM tutorial.housing_units_completed_us
@@ -73,40 +75,99 @@ SELECT year, month,
 FROM tutorial.housing_units_completed_us
 WHERE year >= 1990
 
-12.
+1.
 SELECT *
   FROM tutorial.billboard_top_100_year_end
   WHERE "group" ILIKE '%elvis presley%'
 
-13.
+2.
 SELECT *
 FROM tutorial.billboard_top_100_year_end
 WHERE "artist" ILIKE '%tony%'
 
+3.
+SELECT *
+FROM tutorial.billboard_top_100_year_end
+WHERE song_name ILIKE '%love%' OR song_name ILIKE '%loving%'
+
+4.
+SELECT *
+FROM tutorial.billboard_top_100_year_end
+WHERE artist ILIKE 'a%'
+
+5.
+SELECT *
+FROM tutorial.billboard_top_100_year_end
+WHERE year_rank <= 3
+AND year BETWEEN 1960 AND 1969
+
+6.
+SELECT *
+FROM tutorial.billboard_top_100_year_end
+WHERE artist IN ('Elvis Presley', 'Rolling Stones', 'Van Halen')
+
+7.
+SELECT artist,
+COUNT(artist) AS "Number of Top Hits"
+FROM tutorial.billboard_top_100_year_end
+GROUP BY artist
+ORDER BY "Number of Top Hits" DESC
+
+8.
+**??
+SELECT artist, 
+COUNT(artist) AS "Number of Top Hits" 
+FROM tutorial.billboard_top_100_year_end 
+WHERE year_rank = 1
+GROUP BY artist
+ORDER BY "Number of Top Hits" DESC
+??**
+
+9.
+SELECT *
+FROM tutorial.billboard_top_100_year_end
+WHERE year = 1970 AND year_rank BETWEEN 10 AND 20
+
+10.
+SELECT *
+FROM tutorial.billboard_top_100_year_end
+WHERE year BETWEEN 1990 AND 1999
+AND ((( year_rank BETWEEN 10 AND 100 ) AND artist NOT ILIKE 'madonna')
+OR year_rank BETWEEN 1 AND 9 )
+ORDER BY artist
+
+11.
+SELECT *
+FROM tutorial.billboard_top_100_year_end
+WHERE year = 1985
+AND "group" NOT ILIKE '%phil collins%'
+AND "group" NOT ILIKE '%madonna%'
+
+12.
+SELECT *
+FROM tutorial.billboard_top_100_year_end
+WHERE year_rank = 1
+
+13.
+SELECT *
+FROM tutorial.billboard_top_100_year_end
+WHERE artist IS NULL
+
 14.
 SELECT *
-  FROM tutorial.billboard_top_100_year_end
-  WHERE song_name ILIKE '%love%' OR song_name ILIKE '%loving%'
+FROM tutorial.billboard_top_100_year_end
+WHERE artist ILIKE '%madonna%'
+ORDER BY year_rank
 
-  15.
-  SELECT *
-  FROM tutorial.billboard_top_100_year_end
-  WHERE artist ILIKE 'a%'
+15.
+SELECT *
+FROM tutorial.billboard_top_100_year_end
+WHERE artist ILIKE '%madonna%'
+ORDER BY year, year_rank
 
-  16.
-  SELECT *
-  FROM tutorial.billboard_top_100_year_end
-  WHERE year_rank <= 3
-  AND year BETWEEN 1960 AND 1969
-
-  17.
-  SELECT *
-  FROM tutorial.billboard_top_100_year_end
-  WHERE artist IN ('Elvis Presley', 'Rolling Stones', 'Van Halen')
-
-  18.
-  SELECT artist,
-  COUNT(artist) AS "Number of Top Hits"
-  FROM tutorial.billboard_top_100_year_end
-  GROUP BY artist
-  ORDER BY "Number of Top Hits" DESC
+16.
+SELECT *
+FROM tutorial.billboard_top_100_year_end
+WHERE year >= 1990
+AND year_rank IN (1, 2, 3)
+ORDER BY year_rank, year
