@@ -331,7 +331,7 @@ SELECT COUNT(DISTINCT month)
 FROM tutorial.aapl_historical_stock_price
 
 Count how many unique prices there are in the data set
-SELECT COUNT(DISTINCT open) + COUNT(DISTINCT close) + 
+SELECT COUNT(DISTINCT open) + COUNT(DISTINCT close) +
        COUNT(DISTINCT low) + COUNT(DISTINCT high) AS total_count
 FROM tutorial.aapl_historical_stock_price
 
@@ -342,7 +342,7 @@ FROM tutorial.aapl_historical_stock_price
 
 
 A listing of all months by their average daily trading volume and a classification that puts this volume into the following categories: "Low" = below 10MM, "Medium" = 10-25 MM, "High" = above 25MM
-SELECT year, 
+SELECT year,
        month,
        AVG(volume),
        CASE
@@ -388,14 +388,93 @@ Note: To see the schemas for these tables listed on the left panel, you need to 
 Note2: Mode uses a non-primary key "school_name" to join their tables here. You should really use primary keys wherever possible in your own data.
 
 The most common home town of football players
+
+SELECT hometown, COUNT(*)
+
+FROM benn.college_football_players
+
+WHERE hometown != '--'
+
+GROUP BY "hometown"
+ORDER BY "count" DESC
+
+LIMIT 1
+
+
 The total number of players in each of their Freshmen, Sophomore, Junior or Senior years (4 rows)
+
+SELECT year, COUNT(*)
+
+FROM benn.college_football_players
+
+GROUP BY year
+
+
 The total number of players in each position
+
+SELECT position, COUNT(*)
+
+FROM benn.college_football_players
+
+GROUP BY position
+
+
 The average height of quarterbacks
+
+SELECT AVG(height)
+
+FROM benn.college_football_players
+WHERE position = 'QB'
+
+
 The average height of each position
+
+SELECT position, AVG(height)
+
+FROM benn.college_football_players
+
+GROUP BY position
+
+
+
 Return 100 football players and which conference they play for
+
+SELECT teams.conference as conference,
+      players.player_name as playername
+
+FROM benn.college_football_players players
+JOIN benn.college_football_teams teams
+ON teams.school_name = players.school_name
+
+LIMIT 100
+
+
 The heaviest football player in the SEC
+
+SELECT teams.conference as conference,
+      players.player_name as playername,
+      players.weight as highest_weight
+
+FROM benn.college_football_players players
+JOIN benn.college_football_teams teams
+ON teams.school_name = players.school_name
+
+WHERE conference = 'SEC'
+
+GROUP BY highest_weight, conference, player_name
+
+ORDER BY highest_weight DESC
+
 The top 5 heaviest football players in each conference
+
+
 The most common home state of players by conference
+
+
 The average height of football players in each conference
+
+
 The count of football players in the top 100 of weight who belong to each division
+
+
 All players whose home state is Kansas but who went to a school in Missouri
