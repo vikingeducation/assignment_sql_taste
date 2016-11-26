@@ -283,3 +283,80 @@ WHERE year BETWEEN 2005 AND 2010
 GROUP BY year
 ORDER BY year;
 ```
+
+```
+SELECT main.year, main. month, AVG((high + low + open + close)/4) as price
+FROM
+tutorial.aapl_historical_stock_price as main
+INNER JOIN
+(SELECT open_price.year, open_price.month
+FROM (SELECT open, year, month
+      FROM tutorial.aapl_historical_stock_price
+      WHERE id IN (
+                    SELECT MIN(id)
+                    FROM tutorial.aapl_historical_stock_price
+                    GROUP BY year, month
+                    ORDER BY year, month
+                  )
+    ) open_price
+    INNER JOIN
+    (SELECT close, year, month
+      FROM tutorial.aapl_historical_stock_price
+      WHERE id IN (
+                    SELECT MAX(id)
+                    FROM tutorial.aapl_historical_stock_price
+                    GROUP BY year, month
+                    ORDER BY year, month
+                  )
+    ) close_price
+ON (close_price.year = open_price.year AND close_price.month = open_price.month)
+WHERE (open - close) > 25) valid
+ON (main.year = valid.year AND main.month = valid.month)
+GROUP BY main.year, main.month
+ORDER BY main.year, main.month;
+```
+
+```
+SELECT year, month, vol
+FROM (
+      SELECT year, month, AVG(volume) as vol
+      FROM tutorial.aapl_historical_stock_price
+      WHERE month > 6
+      GROUP BY year, month
+      ) avg_monthly
+WHERE vol < 10000000
+ORDER BY year, month
+```
+
+```
+SELECT COUNT(DISTINCT(month))
+FROM tutorial.aapl_historical_stock_price;
+```
+
+```
+SELECT COUNT(DISTINCT(year))
+FROM tutorial.aapl_historical_stock_price;
+```
+
+```
+SELECT COUNT(DISTINCT(price))
+FROM (
+      SELECT open as price
+      FROM tutorial.aapl_historical_stock_price
+      UNION
+      SELECT close as price
+      FROM tutorial.aapl_historical_stock_price
+      UNION
+      SELECT high as price
+      FROM tutorial.aapl_historical_stock_price
+      UNION
+      SELECT low as price
+      FROM tutorial.aapl_historical_stock_price
+      )unioned
+WHERE price IS NOT NULL
+```
+
+```
+SELECT (CAST(COUNT(DISTINCT(open))AS FLOAT)/COUNT(open)) * 100 as percent_distinct
+FROM tutorial.aapl_historical_stock_price
+```
