@@ -97,7 +97,7 @@ Presley';
 
 All rows where the artist's name contained "Tony" (not case sensitive)
 ```
-SELECT * FROM tutorial.billboard_top_100_year_end WHERE artist ILIKE 'Tony%';
+SELECT * FROM tutorial.billboard_top_100_year_end WHERE artist ILIKE '%Tony%';
 ```
 
 All rows where the song title contained the word "love" in any way
