@@ -125,7 +125,8 @@ Which artist has had the most appearances on the top 100 list?
 ```
 SELECT COUNT(artist) as artist_count, artist
 FROM tutorial.billboard_top_100_year_end
-GROUP BY artist ORDER BY artist_count DESC LIMIT 1;
+GROUP BY artist
+ORDER BY artist_count DESC LIMIT 1;
 ```
 
 Which artist has had the most #1 hits? How many?
@@ -133,7 +134,7 @@ Which artist has had the most #1 hits? How many?
 SELECT COUNT(year_rank), artist
 FROM (SELECT year_rank, artist
       FROM tutorial.billboard_top_100_year_end
-WHERE year_rank = 1) num_1_hits
+      WHERE year_rank = 1) num_1_hits
 GROUP BY artist ORDER BY count DESC LIMIT 2;
 ```
 
