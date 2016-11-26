@@ -112,7 +112,7 @@ SELECT * FROM tutorial.billboard_top_100_year_end WHERE artist LIKE 'A%';
 
 The top 3 songs from each year between 1960-1969
 ```
-SELECT * FROM tutorial.billboard_top_100_year_end WHERE year_rank < 4;
+SELECT * FROM tutorial.billboard_top_100_year_end WHERE (year_rank < 4) AND (year BETWEEN 1960 AND 1969);
 ```
 
 All rows where either Elvis Presley, The Rolling Stones, or Van Halen were the artist
