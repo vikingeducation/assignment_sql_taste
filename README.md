@@ -53,14 +53,22 @@ SELECT *, south + west + midwest + northeast AS "Sum"
   WHERE south + west + midwest + northeast BETWEEN 50 AND 80
 ```
 ```
+SELECT *, (south + west + midwest + northeast) / 4 AS "Average"
+  FROM tutorial.us_housing_units
+```
+```
 SELECT *, west + midwest + northeast AS "West, Midwest, and Northeast"
   FROM tutorial.us_housing_units
   WHERE south > (west + midwest + northeast)
 ```
 ```
-SELECT *, south + west + midwest + northeast AS "Sum"
+SELECT  *, 
+        south / (south + west + midwest + northeast) * 100 AS "South %",
+        west / (south + west + midwest + northeast) * 100 AS "West %",
+        midwest / (south + west + midwest + northeast) * 100 AS "Midwest %",
+        northeast / (south + west + midwest + northeast) * 100 AS "Northeast %"
   FROM tutorial.us_housing_units
-  WHERE south + west + midwest + northeast BETWEEN 50 AND 80
+  WHERE year >= 1990
 ```
 
 
