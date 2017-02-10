@@ -103,7 +103,6 @@ SELECT *
   FROM tutorial.billboard_top_100_year_end
   WHERE artist IN ('Elvis Presley','Rolling Stones','Van Halen')
 ```
-8) Which artist has had the most #1 hits? How many?
 ```
 SELECT artist, COUNT(artist) AS count
   FROM tutorial.billboard_top_100_year_end
