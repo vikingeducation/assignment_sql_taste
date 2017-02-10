@@ -71,5 +71,92 @@ SELECT  *,
   WHERE year >= 1990
 ```
 
-
 ### tutorial.billboard_top_100_year_end
+```
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE artist = 'Elvis Presley'
+```
+```
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE artist ILIKE '%tony%'
+```
+```
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE song_name ILIKE '%love%'
+```
+```
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE artist LIKE 'A%'
+```
+```
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE year_rank <= 3
+  AND year BETWEEN 1960 AND 1969
+```
+```
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE artist IN ('Elvis Presley','Rolling Stones','Van Halen')
+```
+8) Which artist has had the most #1 hits? How many?
+```
+SELECT artist, COUNT(artist) AS count
+  FROM tutorial.billboard_top_100_year_end
+  WHERE year_rank = 1
+  GROUP BY artist
+  ORDER BY COUNT(artist) DESC
+```
+```
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE year = 1970
+  AND year_rank BETWEEN 10 and 20
+```
+```
+SELECT * 
+  FROM tutorial.billboard_top_100_year_end
+  WHERE year BETWEEN 1990 AND 1999
+  AND artist = 'Madonna'
+  AND year_rank NOT BETWEEN 10 AND 100
+```
+```
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE year = 1985
+  AND "group" NOT ILIKE '%madonna%' 
+  AND "group" NOT ILIKE 'phil collins'
+```
+```
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE year_rank = 1
+```
+```
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE artist IS NULL
+```
+```
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE artist = 'Madonna'
+  ORDER BY year_rank
+```
+```
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE artist = 'Madonna'
+  ORDER BY year DESC, year_rank
+```
+```
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE year >= 1990
+  AND year_rank <= 3
+  ORDER BY year_rank, year
+```
