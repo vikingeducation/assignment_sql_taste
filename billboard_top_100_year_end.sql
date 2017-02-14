@@ -2,7 +2,6 @@
 SELECT * 
 FROM tutorial.billboard_top_100_year_end
 WHERE "artist" ILIKE ('elvis presley')
-AND year_rank <= 100
 
 -- All rows where the artist's name contained "Tony" (not case sensitive)
 SELECT *
@@ -65,7 +64,7 @@ SELECT *
 FROM tutorial.billboard_top_100_year_end 
 WHERE artist ILIKE '%madonna%'
 AND year_rank BETWEEN 1 AND 9
-AND year = 1990
+AND year BETWEEN 1990 and 1999
 
 
 -- All rows from 1985 which do not include Madonna or Phil Collins in the group.
@@ -90,14 +89,12 @@ WHERE artist IS null
 SELECT *
 FROM tutorial.billboard_top_100_year_end 
 WHERE artist = 'Madonna'
-AND year_rank <= 100
 ORDER BY year_rank ASC
 
 -- All of Madonna's top 100 hits ordered by their ranking within each year
 SELECT *
 FROM tutorial.billboard_top_100_year_end 
 WHERE artist = 'Madonna'
-AND year_rank <= 100
 ORDER BY year, year_rank ASC
 
 -- Every number 1 song since 1990 followed by every number 2 song since 1990 and number 3 song since 1990. (Hint: Multiple ordering)
@@ -105,4 +102,4 @@ SELECT *
 FROM tutorial.billboard_top_100_year_end 
 WHERE year >= 1990
 AND year_rank <= 3
-ORDER BY year_rank, year ASC
+ORDER BY year_rank, year
