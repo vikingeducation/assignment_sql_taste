@@ -378,6 +378,101 @@ SELECT year,
   GROUP BY year, quarter
   ORDER BY year, quarter
   
+benn.college_football_players players 
+benn.college_football_teams teams
+-------------------------------------
+
+1.
+SELECT  hometown, COUNT(hometown) AS players
+        FROM benn.college_football_players
+        WHERE hometown != '--'
+        GROUP BY hometown
+        ORDER BY COUNT(hometown) DESC
+        
+2.
+SELECT  DISTINCT year,
+        COUNT(*) AS Players
+        FROM benn.college_football_players
+        GROUP BY year
+        
+3.
+SELECT  DISTINCT position, 
+        COUNT(position) AS players
+        FROM benn.college_football_players
+        GROUP BY position
+        
+4.
+SELECT  position, AVG(height) AS avg_height
+        FROM benn.college_football_players
+        WHERE position = 'QB'
+        GROUP BY position
+        
+5.
+SELECT  position, AVG(height) AS avg_height
+        FROM benn.college_football_players
+        GROUP BY position
+
+6.
+SELECT  players.player_name,
+        teams.conference
+        FROM benn.college_football_players players
+        JOIN benn.college_football_teams teams
+        ON players.school_name = teams.school_name
+        ORDER BY weight -- to produce unidentical conf names at start of list
+        LIMIT 100
+        
+7.
+SELECT  players.player_name, 
+        MAX(players.weight) AS "heaviest player in SEC",
+        teams.conference,
+        teams.division
+        FROM benn.college_football_players players
+        JOIN benn.college_football_teams teams
+        ON players.school_name = teams.school_name
+        GROUP BY players.player_name, teams.conference, teams.division
+        ORDER BY MAX(players.weight) DESC
+        LIMIT 1
+
+8.
+Not possible to do this 
+
+9.
+SELECT  teams.conference, 
+        players.state AS most_common_home_state, 
+        COUNT(state) AS number_of_players
+        FROM benn.college_football_players players
+        JOIN benn.college_football_teams teams
+        ON players.school_name = teams.school_name
+        GROUP BY teams.conference, players.state
+        ORDER BY teams.conference, COUNT(players.state) DESC
+        
+How limit to one max-count per conference?
+
+10.
+SELECT  teams.conference, 
+        AVG(players.height) AS avg_height
+        FROM benn.college_football_players players
+        JOIN benn.college_football_teams teams
+        ON players.school_name = teams.school_name
+        GROUP BY teams.conference
+        ORDER BY teams.conference 
+        
+11.
+SELECT  teams.division, count-of-top-100-heaviest-players?
+        FROM benn.college_football_players players
+        JOIN benn.college_football_teams teams
+        ON players.school_name = teams.school_name
+        GROUP BY teams.division
+        ORDER BY teams.division 
+        
+How find count-of-top-100-heaviest-players?   
+
+12.
+SELECT  player_name, state AS school_state, hometown, RIGHT(hometown, 2)
+        FROM benn.college_football_players
+        WHERE state != RIGHT(hometown, 2)
+Never happens! Stupid question.
+
   
 
 
