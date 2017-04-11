@@ -17,6 +17,14 @@ SELECT *
 --------------------
 #### tutorial.us_housing_units
 
+10 results with information on all columns
+
+```sql
+SELECT *
+FROM tutuorial.us_housing_units
+LIMIT 10
+```
+
 Housing starts in the Midwest
 
 ```sql
@@ -68,8 +76,7 @@ All rows where the sum of all housing starts is between 50-80k
 ```sql
 SELECT *
 FROM tutorial.us_housing_units
-WHERE south + west + midwest + northeast
-BETWEEN 50 AND 80
+WHERE south + west + midwest + northeast BETWEEN 50 AND 80
 ```
 
 The average of all housing starts across all regions for each row
