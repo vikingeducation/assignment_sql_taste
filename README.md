@@ -49,8 +49,7 @@ WHERE (south + west + midwest + northeast) > 70
 8)
 SELECT *
 FROM tutorial.us_housing_units
-WHERE (south + west + midwest + northeast) > 50
-  AND (south + west + midwest + northeast) < 80
+WHERE (south + west + midwest + northeast) BETWEEN 50 AND 80
 
 9)
 SELECT year,
