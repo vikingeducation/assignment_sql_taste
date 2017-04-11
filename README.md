@@ -3,6 +3,9 @@ A delicious appetizer of SQL-ey goodness
 
 
 ## Queries
+-------
+HOUSING
+-------
 
 1)
 SELECT *
@@ -46,6 +49,8 @@ SELECT *
 FROM tutorial.us_housing_units
 WHERE (south + west + midwest + northeast) > 70
 
+
+**Remember that between is inclusive**
 8)
 SELECT *
 FROM tutorial.us_housing_units
@@ -74,3 +79,51 @@ SELECT year,
       northeast / (south + west + midwest + northeast) * 100 as "northeast_%"
   FROM tutorial.us_housing_units
   WHERE year >= 1990
+
+---------
+BILLBOARD
+---------
+1)
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE "artist" = 'Elvis Presley'
+
+2)
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE "artist" ILIKE '%Tony%'
+
+3)
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE "song_name" ILIKE '%love%'
+
+4)
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE "artist" ILIKE 'a%'
+
+5)
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE year_rank IN (1,2,3)
+    AND year BETWEEN 1960 AND 1969
+
+6)
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE artist IN ('Elvis Presley', 'Van Halen', 'Rolling Stones')
+
+7)
+
+8)
+
+9)
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE year = 1970 AND year_rank BETWEEN 10 AND 20
+
+10)
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+  WHERE year BETWEEN 1990 AND 1999 AND artist = 'Madonna' AND year_rank NOT BETWEEN 10 AND 100
