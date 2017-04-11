@@ -160,5 +160,5 @@ Every number 1 song since 1990 followed by every number 2 song since 1990 and nu
 
     SELECT *
     FROM tutorial.billboard_top_100_year_end
-    WHERE year > 1990
+    WHERE year > 1990 AND year_rank IN (1,2,3)
     ORDER BY year_rank, year
