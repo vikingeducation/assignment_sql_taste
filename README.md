@@ -88,43 +88,53 @@ SELECT *
 
   6. SELECT *
   FROM tutorial.billboard_top_100_year_end
-  WHERE artist IN ('Elvis Presley', 'Rolling Stones', 'Van Halen' ) 
+  WHERE artist IN ('Elvis Presley', 'Rolling Stones', 'Van Halen' )
 
-  7.
+  7. SELECT artist, COUNT( * )
+  FROM tutorial.billboard_top_100_year_end
+  GROUP BY artist
+  ORDER BY count desc
+  LIMIT 1
 
-  8.
 
-  9. SELECT * 
+----this one is questionable------
+  8. SELECT artist, COUNT( * )
+  FROM tutorial.billboard_top_100_year_end
+  WHERE year_rank = 1
+  GROUP BY artist
+  ORDER BY count desc
+
+  9. SELECT *
   FROM tutorial.billboard_top_100_year_end
   WHERE year = 1970 AND year_rank BETWEEN 10 AND 20
 
-  10. SELECT * 
+  10. SELECT *
   FROM tutorial.billboard_top_100_year_end
 WHERE year BETWEEN 1990 AND 1999 AND ((artist NOT ILIKE '%Madonna%' AND year_rank > 9) OR (year_rank < 10))
 
-11. SELECT * 
+11. SELECT *
   FROM tutorial.billboard_top_100_year_end
 WHERE year = 1985 AND ("group" NOT ILIKE '%Madonna%' AND "group" NOT ILIKE '%Phil Collins%')
 
-12. SELECT * 
+12. SELECT *
   FROM tutorial.billboard_top_100_year_end
 WHERE year_rank = 1
 
-13. SELECT * 
+13. SELECT *
   FROM tutorial.billboard_top_100_year_end
 WHERE artist IS NULL
 
-14. SELECT * 
+14. SELECT *
   FROM tutorial.billboard_top_100_year_end
 WHERE artist ILIKE '%Madonna%'
 ORDER BY year_rank
 
-15. SELECT * 
+15. SELECT *
   FROM tutorial.billboard_top_100_year_end
 WHERE artist ILIKE '%Madonna%'
 ORDER BY year_rank, year
 
-16. SELECT * 
+16. SELECT *
   FROM tutorial.billboard_top_100_year_end
 WHERE year >= 1990 AND year_rank < 4
 ORDER BY year_rank, year
