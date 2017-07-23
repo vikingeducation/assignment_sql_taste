@@ -8,42 +8,42 @@ A delicious appetizer of SQL-ey goodness
 ### 10 results with information on all columns
 ```SELECT * FROM tutorial.us_housing_units limit 10```
 
-### Housing starts in the Midwest
+Housing starts in the Midwest
 ```SELECT midwest FROM tutorial.us_housing_units```
 
-### All housing starts in December since 1985
+All housing starts in December since 1985
 ```SELECT * FROM tutorial.us_housing_units where month_name = 'December' and year >= '1985'``` 
 
 All housing starts in the second half of the year since 1990
-SELECT * FROM tutorial.us_housing_units where month>= 7 and year >= '1990'
+SELECT * FROM tutorial.us_housing_units where month>= 7 and year >= '1990'```
 
-### All rows where housing starts were above 30,000 in the South region
+All rows where housing starts were above 30,000 in the South region
 ```SELECT * FROM tutorial.us_housing_units where south> 30```
 
 ### The sum of housing starts across all regions for each row
 ```SELECT south + west + midwest + northeast AS total_regions 
   FROM tutorial.us_housing_units```
 
-### All rows where the sum of all housing starts is above 70,000 Note: You can't use an alias in a WHERE clause.
+All rows where the sum of all housing starts is above 70,000 Note: You can't use an alias in a WHERE clause.
 ```SELECT * FROM tutorial.us_housing_units WHERE (midwest + northeast + south + west) > 70```
 
-### All rows where the sum of all housing starts is between 50-80k
+All rows where the sum of all housing starts is between 50-80k
 ```SELECT * FROM tutorial.us_housing_units WHERE (midwest + northeast + south + west) BETWEEN 50 AND 80```
 
-### The average of all housing starts across all regions for each row
+The average of all housing starts across all regions for each row
 ```SELECT *, (midwest + northeast + west + south)/4 as average_housing FROM tutorial.us_housing_units```
 
-### All rows where the housing starts in the South are above the sum of the other three regions
+All rows where the housing starts in the South are above the sum of the other three regions
 ```SELECT * FROM tutorial.us_housing_units WHERE SOUTH > (midwest + northeast + west)```
 
-### The percentage of housing starts that occur in each region since 1990 Note: Use an alias to title the new columns appropriately
+The percentage of housing starts that occur in each region since 1990 Note: Use an alias to title the new columns appropriately
 ``` ```
 
 ----------------
 
 tutorial.billboard_top_100_year_end
 
-### All rows where Elvis Presley had a song on the top 100 charts
+All rows where Elvis Presley had a song on the top 100 charts
 ```SELECT * FROM tutorial.billboard_top_100_year_end WHERE artist = 'Elvis Presley'```
 
 ### All rows where the artist's name contained "Tony" (not case sensitive)
@@ -60,7 +60,6 @@ tutorial.billboard_top_100_year_end
 ```SELECT * FROM tutorial.billboard_top_100_year_end WHERE artist IN ('Elvis Presley', 'The Rolling Stones', 'Van Halen')```
 
 ### Which artist has had the most appearances on the top 100 list?
-
 ### Which artist has had the most #1 hits? How many?
 ### All rows from 1970 where the songs were ranked 10-20th
 ```SELECT *
