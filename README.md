@@ -15,14 +15,13 @@ A delicious appetizer of SQL-ey goodness
 ```SELECT * FROM tutorial.us_housing_units where month_name = 'December' and year >= '1985' ``` 
 
 ### All housing starts in the second half of the year since 1990
-SELECT * FROM tutorial.us_housing_units where month>= 7 and year >= '1990' ```
+```SELECT * FROM tutorial.us_housing_units where month>= 7 and year >= '1990' ```
 
 ### All rows where housing starts were above 30,000 in the South region
 ```SELECT * FROM tutorial.us_housing_units where south> 30```
 
 ### The sum of housing starts across all regions for each row
-```SELECT south + west + midwest + northeast AS total_regions 
-  FROM tutorial.us_housing_units```
+```SELECT south + west + midwest + northeast AS total_regions FROM tutorial.us_housing_units```
 
 ### All rows where the sum of all housing starts is above 70,000 Note: You can't use an alias in a WHERE clause.
 ```SELECT * FROM tutorial.us_housing_units WHERE (midwest + northeast + south + west) > 70```
