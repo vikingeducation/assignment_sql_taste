@@ -3,7 +3,7 @@ A delicious appetizer of SQL-ey goodness
 
 ## Queries
 
-### tutorial.us_housing_units
+## tutorial.us_housing_units
 
 ### 10 results with information on all columns
 ```SELECT * FROM tutorial.us_housing_units limit 10```
@@ -36,11 +36,11 @@ A delicious appetizer of SQL-ey goodness
 ```SELECT * FROM tutorial.us_housing_units WHERE SOUTH > (midwest + northeast + west)```
 
 ### The percentage of housing starts that occur in each region since 1990 Note: Use an alias to title the new columns appropriately
-``` ```
+```SELECT *, (south / (south + west + midwest + northeast) * 100) AS "south_%", west / (south + west + midwest + northeast) * 100 AS "west_%", midwest / (south + west + midwest + northeast) * 100 AS "midwest_%", northeast / (south + west + midwest + northeast) * 100 AS "northeast_%" FROM tutorial.us_housing_units WHERE year >= 1990 ```
 
 ----------------
 
-tutorial.billboard_top_100_year_end
+## tutorial.billboard_top_100_year_end
 
 ### All rows where Elvis Presley had a song on the top 100 charts
 ```SELECT * FROM tutorial.billboard_top_100_year_end WHERE artist = 'Elvis Presley'```
@@ -55,11 +55,17 @@ tutorial.billboard_top_100_year_end
 ```SELECT * FROM tutorial.billboard_top_100_year_end WHERE artist LIKE 'A%'```
 
 ### The top 3 songs from each year between 1960-1969
+```SELECT * FROM tutorial.billboard_top_100_year_end WHERE year BETWEEN 1960 AND 1969 AND year_rank <= 3```
+
 ### All rows where either Elvis Presley, The Rolling Stones, or Van Halen were the artist
 ```SELECT * FROM tutorial.billboard_top_100_year_end WHERE artist IN ('Elvis Presley', 'The Rolling Stones', 'Van Halen')```
 
 ### Which artist has had the most appearances on the top 100 list?
+```SELECT count(year_rank) AS artist_count, artist FROM tutorial.billboard_top_100_year_end GROUP BY artist ORDER by artist_count desc```
+
 ### Which artist has had the most #1 hits? How many?
+```SELECT count(year_rank) as artist_year_rank, artist FROM tutorial.billboard_top_100_year_end WHERE year_rank = 1 GROUP BY artist ORDER by artist_year_rank desc```
+
 ### All rows from 1970 where the songs were ranked 10-20th
 ```SELECT * FROM tutorial.billboard_top_100_year_end WHERE year = '1970' AND year_rank BETWEEN 10 AND 20```
 
