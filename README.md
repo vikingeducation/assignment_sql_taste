@@ -130,7 +130,7 @@ WHERE artist IN ('Elvis Presley', 'Rolling Stones', 'Van Halen')
   ORDER BY year_rank, year
 
 
-Intermediate Stuff
+Intermediate Billboard
 
 * Phil Collins Top
 SELECT * 
@@ -161,3 +161,30 @@ SELECT artist, COUNT(*) as appearances
 SELECT COUNT(*) as hits
   FROM tutorial.billboard_top_100_year_end
   WHERE artist IN ('Elvis Presley', 'Madonna', 'Beatles', 'Elton John')
+
+Intermediate Apple
+
+* Apple Ranging More Than $5
+SELECT COUNT(*) AS days
+  FROM tutorial.aapl_historical_stock_price
+  WHERE high - low > 5
+
+* Highest daily range in 2012
+SELECT high - low as range
+  FROM tutorial.aapl_historical_stock_price
+  WHERE year = 2012
+  AND high - low IS NOT NULL
+  ORDER BY high - low DESC
+  LIMIT 1
+
+* Average Price on high-volume days
+SELECT (SUM(high) + sum(low)/ 2) / COUNT(*) as average
+  FROM tutorial.aapl_historical_stock_price
+  WHERE volume > 10000000
+
+* Number of trading days in each month of 2012
+SELECT month, COUNT(*) as days
+  FROM tutorial.aapl_historical_stock_price
+  WHERE year = 2012
+  GROUP BY month
+  ORDER BY month
