@@ -20,7 +20,7 @@ SELECT *
   FROM tutorial.billboard_top_100_year_end
   WHERE artist LIKE 'A%';
 
-5. The top 3 songs from each year between 1960-1969
+-- 5. The top 3 songs from each year between 1960-1969
 WITH partitioned AS
 (SELECT *,
         ROW_NUMBER() OVER(PARTITION BY year ORDER BY year_rank ASC) as row_num
