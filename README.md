@@ -89,9 +89,19 @@ SELECT *
   FROM tutorial.billboard_top_100_year_end
   WHERE artist IN ('Elvis Presley', 'Rolling Stones', 'Van Halen')
 
-7.
+7. SELECT artist,
+COUNT(*) AS count
+FROM tutorial.billboard_top_100_year_end
+GROUP BY artist
+ORDER BY count DESC
 
-8.
+8. SELECT artist,
+COUNT(*) AS count
+FROM tutorial.billboard_top_100_year_end
+WHERE year_rank = 1
+GROUP BY artist
+ORDER BY count DESC
+
 
 9. SELECT *
   FROM tutorial.billboard_top_100_year_end
