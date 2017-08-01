@@ -1,6 +1,7 @@
 # assignment_sql_taste
 A delicious appetizer of SQL-ey goodness
 
+Greg Filipczak and Ed Triplett
 
 ## Queries
 
