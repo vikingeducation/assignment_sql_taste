@@ -123,13 +123,30 @@
 --       WHERE artist IS NOT NULL
 
 -- 8.
--- SELECT MAX(
---   (SELECT artist, COUNT(*) AS artist_hits
+-- SELECT artist, COUNT(*) AS artist_hits
 --   FROM  tutorial.billboard_top_100_year_end
+--   WHERE artist IS NOT NULL
 --   GROUP BY artist
---   WHERE artist IS NOT NULL) AS artist_top_100
+--   ORDER BY artist_hits DESC
+--   LIMIT 2
 
+-- 9.
+-- SELECT *
+--   FROM tutorial.billboard_top_100_year_end
+--   WHERE year = 1970
+--   AND year_rank BETWEEN 10 AND 20
 
+-- 10.
+-- SELECT *
+--   FROM tutorial.billboard_top_100_year_end
+--   WHERE year BETWEEN 1990 AND 1999
+--   AND NOT (artist = 'Madonna' AND year_rank BETWEEN 10 AND 100)
+
+-- 11.
+-- SELECT *
+--   FROM tutorial.billboard_top_100_year_end
+--   WHERE artist NOT ILIKE '%Madonna%' AND
+--   artist NOT ILIKE '%Elvis Presley%'
 
 -- 12.
 -- SELECT song_name
@@ -147,6 +164,13 @@
 --   ORDER BY year_rank ASC
 
 -- 15.
-SELECT *
-  FROM tutorial.billboard_top_100_year_end
-  ORDER BY year, year_rank DESC
+-- SELECT *
+--   FROM tutorial.billboard_top_100_year_end
+--   WHERE artist = 'Madonna'
+--   ORDER BY year, year_rank DESC
+
+-- 16.
+-- SELECT *
+--   FROM tutorial.billboard_top_100_year_end
+--   WHERE year >= 1990 AND year_rank IN (1, 2, 3)
+--   ORDER BY year_rank, year ASC
