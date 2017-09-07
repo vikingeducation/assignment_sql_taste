@@ -1,4 +1,5 @@
 # assignment_sql_taste
+
 A delicious appetizer of SQL-ey goodness
 
 
@@ -11,3 +12,5 @@ SELECT *
   FROM tutorial.us_housing_units
   WHERE month = 1
 ```
+<br>
+Mariah Schneeberger
