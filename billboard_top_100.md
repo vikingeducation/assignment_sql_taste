@@ -123,3 +123,21 @@ SELECT year, song_name, artist, year_rank
   AND year >= 1990
   ORDER BY year_rank, year
 ```
+
+## Intermediate Queries
+1. What is the average position reached by Michael Jackson? *46*
+```sql
+SELECT artist, AVG(year_rank)
+  FROM tutorial.billboard_top_100_year_end
+  WHERE artist = 'Michael Jackson'
+  GROUP BY artist
+```
+2. List the top 10 artists based on their number of appearances on this list (and what that number is) since 1985
+```sql
+SELECT artist, COUNT(*) as appearances
+  FROM tutorial.billboard_top_100_year_end
+  WHERE year >= 1985
+  GROUP BY artist
+  ORDER BY COUNT(*) DESC
+  LIMIT 10
+```
