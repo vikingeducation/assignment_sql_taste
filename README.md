@@ -38,7 +38,7 @@ SELECT year, month, month_name, (south + west + midwest + northeast) as total
 SELECT *
   FROM tutorial.us_housing_units
   WHERE (south + west + midwest + northeast) > 70
-
+  
 8.
 SELECT *
   FROM tutorial.us_housing_units
@@ -103,4 +103,58 @@ SELECT COUNT(artist) as count, artist
   ORDER BY count DESC
   LIMIT 1
 
-8.
+ 8.
+SELECT COUNT(artist) AS count, artist
+  FROM tutorial.billboard_top_100_year_end 
+  WHERE year_rank = 1
+  GROUP BY artist
+  ORDER BY count DESC
+  LIMIT 1
+The beatles 2
+
+9.
+SELECT *
+  FROM tutorial.billboard_top_100_year_end 
+  WHERE year = 1970 AND year_rank BETWEEN 10 AND 20
+  
+10.
+SELECT *
+  FROM tutorial.billboard_top_100_year_end 
+  WHERE id NOT IN (SELECT id
+  FROM tutorial.billboard_top_100_year_end 
+  WHERE year BETWEEN 1990 AND 1999
+  AND artist = 'Madonna' AND year_rank >= 10)
+  
+11.
+SELECT *
+  FROM tutorial.billboard_top_100_year_end 
+  WHERE year = 1985
+  AND artist NOT IN ('madonna', 'phil collins')
+
+12.
+SELECT year, song_name
+  FROM tutorial.billboard_top_100_year_end 
+  WHERE year_rank = 1
+  
+13.
+SELECT *
+  FROM tutorial.billboard_top_100_year_end 
+  WHERE artist IS NULL
+  
+14.
+SELECT *
+  FROM tutorial.billboard_top_100_year_end 
+  WHERE artist = 'Madonna'
+  ORDER BY year_rank ASC
+  
+15.
+SELECT *
+  FROM tutorial.billboard_top_100_year_end 
+  WHERE artist = 'Madonna'
+  ORDER BY year ASC, year_rank ASC
+  
+16.
+SELECT *
+  FROM tutorial.billboard_top_100_year_end 
+  WHERE year >= 100
+  ORDER BY year_rank ASC, year ASC
