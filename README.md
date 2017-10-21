@@ -1,7 +1,8 @@
-# assignment_sql_taste
-Dariusz Biskupski
+# Practice with SQL
 
-## Queries
+[Mode Analytics](https://community.modeanalytics.com/sql/tutorial/introduction-to-sql/)
+
+## Answers to Mode Analytics Tutorial
 tutorial.us_housing_units
 
 1. 10 results with information on all columns
@@ -146,7 +147,7 @@ WHERE "artist" IN ('Elvis Presley', 'Van Halen', 'Rolling Stones')
 SELECT artist,
       COUNT(*) AS count
 FROM tutorial.billboard_top_100_year_end
-WHERE "year_rank" <= 100 
+WHERE "year_rank" <= 100
 GROUP BY "artist"
 ORDER BY "count" DESC
 ```
@@ -236,4 +237,3 @@ WHERE "year" >= 1990
 AND "year_rank" <= 3
 ORDER BY year_rank, year
 ```
-
