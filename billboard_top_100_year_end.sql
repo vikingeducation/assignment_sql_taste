@@ -1,5 +1,7 @@
 -- For use in this tutorial: https://modeanalytics.com/editor/lortz/reports/8c1368005d61
 
+
+/* BASIC QUERIES */
 -- All rows where Elvis Presley had a song on the top 100 charts
 SELECT *
   FROM tutorial.billboard_top_100_year_end
@@ -101,3 +103,16 @@ SELECT *
   WHERE year >= 1990
   AND year_rank IN (1, 2, 3)
   ORDER BY year_rank, year
+
+/* INTERMEDIATE QUERIES */
+
+-- What is the highest position ever reached by Phil Collins?
+
+-- What is the average position reached by Michael Jackson?
+
+-- Madonna's average position when she actually reached the top 10
+
+-- List the top 10 artists based on their number of appearances on this list (and what that number is) since 1985
+
+-- The total count of top 10 hits written by either Elvis, Madonna, the Beatles, or Elton John
+
