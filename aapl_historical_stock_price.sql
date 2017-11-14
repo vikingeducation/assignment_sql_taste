@@ -1,11 +1,15 @@
 -- For use in this tutorial: https://modeanalytics.com/editor/lortz/reports/8c1368005d61
+/* columns: date, year, month #, open, close, high, low, volume, id */
 
 -- The count of days when Apple traded in a range that was larger than $5
 SELECT COUNT(high)
   FROM tutorial.aapl_historical_stock_price
   WHERE high > 5
 
-*********** -- The highest daily trading range that Apple stock achieved in 2012
+-- The highest daily trading range that Apple stock achieved in 2012
+SELECT MAX(high - low) AS range_max
+  FROM tutorial.aapl_historical_stock_price
+  WHERE year = 2012
 
 -- The average price for all days when Apple's trading volume exceeded 10,000,000 shares.
 SELECT AVG(close)
@@ -57,7 +61,14 @@ SELECT  year, MAX(close) AS "max price", MIN(close) AS "min price"
   GROUP BY year
   ORDER BY year ASC
 
-*********** -- The average daily trading range in months where the stock moved more than $25 (open of month to close of month)
+-- The average daily trading range in months where the stock moved more than $25 (open of month to close of month)
+
+SELECT year, month, AVG(high - low) AS range_avg
+  FROM tutorial.aapl_historical_stock_price
+  WHERE (open - close) > 25
+    OR (close - open) > 25
+  GROUP BY year, month
+  ORDER BY year, month
 
 -- All months in the second half of the year where average daily trading volume was below 10,000,000.
 SELECT  *
