@@ -31,9 +31,25 @@ SELECT *
   FROM tutorial.billboard_top_100_year_end
   WHERE artist IN ('Elvis Presley', 'Rolling Stones', 'Van Halen')
 
+  --option 2
+  SELECT *
+    FROM tutorial.billboard_top_100_year_end
+    WHERE artist = 'Elvis Presley' OR
+          artist = 'Rolling Stones' OR
+          artist = 'Van Halen'
+
 -- Which artist has had the most appearances on the top 100 list?
+SELECT artist, count(artist)
+  FROM tutorial.billboard_top_100_year_end
+  GROUP BY artist
+  ORDER BY count(artist) DESC;
 
 -- Which artist has had the most #1 hits? How many?
+SELECT artist, count(artist)
+  FROM tutorial.billboard_top_100_year_end
+  WHERE year_rank = 1
+  group BY artist
+  order BY count(artist) DESC;
 
 -- All rows from 1970 where the songs were ranked 10-20th
 SELECT *
