@@ -6,6 +6,12 @@ Anne Richardson
 
 ## Queries
 
+Queries are in individual files
+
+- appl_historic_stock_price.sql
+- billboard_top_100_year_end.sql
+- us_housing_units.sql
+
 ### Example
 
 ```
