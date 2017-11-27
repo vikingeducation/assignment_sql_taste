@@ -14,7 +14,7 @@ SELECT *
 
 Synopsis
 -----
-Practice writing SQL queries against a various datasets: [US Census housing](http://www.census.gov/econ/currentdata/) data, and [Billboard music charts](http://www.billboard.com/charts) data
+Practice writing SQL queries against various datasets: [US Census housing](http://www.census.gov/econ/currentdata/) data, and [Billboard music charts](http://www.billboard.com/charts) data
 
 ### US Census housing data
 
