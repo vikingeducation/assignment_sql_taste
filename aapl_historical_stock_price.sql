@@ -135,3 +135,37 @@ SELECT month, AVG(close) AS avg_close,
   FROM tutorial.aapl_historical_stock_price
   GROUP BY month
   ORDER BY month
+
+
+SELECT yr,COUNT(title) FROM
+  movie JOIN casting ON movie.id=movieid
+         JOIN actor   ON actorid=actor.id
+where name='John Travolta'
+GROUP BY yr
+HAVING COUNT(title)=(SELECT MAX(c) FROM
+(SELECT yr,COUNT(title) AS c FROM
+   movie JOIN casting ON movie.id=movieid
+         JOIN actor   ON actorid=actor.id
+ where name='John Travolta'
+ GROUP BY yr) AS t
+)
+
+
+
+SELECT movie.yr, COUNT(movie.title) AS movies
+  FROM movie
+  JOIN casting ON movie.id = casting.movieid
+  JOIN actor ON casting.actorid = actor.id
+  WHERE actor.name LIKE 'John Travolta'
+    GROUP BY movie.yr
+    HAVING COUNT(movie.title) = (
+      SELECT MAX(movie_count)
+      FROM (
+        SELECT movie.yr, COUNT(movie.title) AS movie_count
+          FROM movie
+          JOIN casting ON movie.id = casting.movieid
+          JOIN actor ON casting.actorid = actor.id
+          WHERE actor.name LIKE 'John Travolta'
+            GROUP BY movie.yr
+      ) AS t
+    )

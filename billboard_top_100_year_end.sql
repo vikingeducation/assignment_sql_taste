@@ -1,6 +1,5 @@
 -- For use in this tutorial: https://modeanalytics.com/editor/lortz/reports/8c1368005d61
 
-
 /* BASIC QUERIES */
 -- All rows where Elvis Presley had a song on the top 100 charts
 SELECT *
