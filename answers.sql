@@ -116,16 +116,37 @@ WHERE year = 1970
 --10. All rows from the 1990's where Madonna was not ranked 10-100th
 SELECT *
   FROM tutorial.billboard_top_100_year_end
-WHERE year BETWEEN 1990 AND 1999 AND (aritst = 'Madonna' AND year_rank > 9)
+WHERE year BETWEEN 1990 AND 1999 AND artist = 'Madonna' AND year_rank < 10
 
 --11. All rows from 1985 which do not include Madonna or Phil Collins in the group.
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+WHERE year = 1985 AND "group" NOT LIKE  '%Madonna%' AND "group" NOT LIKE  '%Phil Collins%'
 
 --12. All number 1 songs in the data set.
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+WHERE year_rank = 1
 
 --13. All rows where the artist is not listed
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+WHERE artist IS NULL
 
 --14. All of Madonna's top 100 hits ordered by their ranking (1 to 100)
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+WHERE artist = 'Madonna'
+ORDER BY year_rank
 
 --15. All of Madonna's top 100 hits ordered by their ranking within each year
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+WHERE artist = 'Madonna'
+ORDER BY year, year_rank
 
 --16. Every number 1 song since 1990 followed by every number 2 song since 1990 and number 3 song since 1990. (Hint: Multiple ordering)
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+WHERE year > 1989 AND year_rank < 4
+ORDER BY year_rank = 3, year_rank = 2, year_rank = 1
