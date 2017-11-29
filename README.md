@@ -255,8 +255,23 @@ SELECT MAX(high - low)
 ```
 
 The average price for all days when Apple's trading volume exceeded 10,000,000 shares.
+```
+SELECT AVG((high + low)/2)
+  FROM tutorial.aapl_historical_stock_price
+  WHERE volume > 10000000
+```
+
 The number of trading days in each month of the year 2012
+```
+SELECT month, COUNT(date)
+  FROM tutorial.aapl_historical_stock_price
+  WHERE year = 2012
+  GROUP BY month
+  ORDER BY month
+```
+
 The maximum price Apple traded at during each year of the data set
+
 The average price and trading volume on each calendar month across the full data set (this should return only 12 rows, one for each month!)
 The average price for each month and year of data since 2008, ordered by years descending and months ascending.
 The average price of days with a trading volume above 25,000,000 shares (just 1 row)
