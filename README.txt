@@ -96,9 +96,27 @@ SELECT *
   FROM tutorial.billboard_top_100_year_end
  WHERE "song_name" ILIKE '%love%'
 All rows where the artist's name begins with the letter "A"
+
+SELECT *
+  FROM tutorial.billboard_top_100_year_end WHERE "artist" ILIKE 'a%'
+
 The top 3 songs from each year between 1960-1969
+
+SELECT *
+  FROM tutorial.billboard_top_100_year_end WHERE year > 1960 and year <1970 and year_rank <4
+
 All rows where either Elvis Presley, The Rolling Stones, or Van Halen were the artist
+
+  SELECT *
+  FROM tutorial.billboard_top_100_year_end WHERE "group"='Van Halen' 
+  or "group"='Rolling Stones'
+  or "group"='Elvis Presley'
+
+
+
 Which artist has had the most appearances on the top 100 list?
+
+  
 Which artist has had the most #1 hits? How many?
 All rows from 1970 where the songs were ranked 10-20th
 All rows from the 1990's where Madonna was not ranked 10-100th
