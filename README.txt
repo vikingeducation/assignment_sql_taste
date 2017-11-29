@@ -108,19 +108,37 @@ SELECT *
 All rows where either Elvis Presley, The Rolling Stones, or Van Halen were the artist
 
   SELECT *
-  FROM tutorial.billboard_top_100_year_end WHERE "group"='Van Halen' 
+  FROM tutorial.billboard_top_100_year_end WHERE "group"='Van Halen'
   or "group"='Rolling Stones'
   or "group"='Elvis Presley'
 
-
-
 Which artist has had the most appearances on the top 100 list?
+SELECT "artist", COUNT(artist) AS value_occurence
+  FROM tutorial.billboard_top_100_year_end
+  GROUP BY "artist"
+  ORDER BY value_occurence DESC
+  LIMIT 1;
 
-  
 Which artist has had the most #1 hits? How many?
+SELECT "artist", COUNT(artist) AS count_value
+from tutorial.billboard_top_100_year_end
+where year_rank < 2
+GROUP BY "artist"
+ORDER BY count_value DESC
+LIMIT 1;
+
 All rows from 1970 where the songs were ranked 10-20th
+SELECT * FROM tutorial.billboard_top_100_year_end
+WHERE year_rank > 9 AND year_rank < 21 AND year = 1970
+
 All rows from the 1990's where Madonna was not ranked 10-100th
+SELECT * FROM tutorial.billboard_top_100_year_end
+WHERE year >= 1990 AND year < 2000 AND (artist != 'Madonna' OR year_rank < 10)
+
 All rows from 1985 which do not include Madonna or Phil Collins in the group.
+SELECT * FROM tutorial.billboard_top_100_year_end
+WHERE year = 1985 AND "group" NOT ILIKE  '%Madonna%' AND "group" NOT ILIKE '%Phil Collins%'
+
 All number 1 songs in the data set.
 All rows where the artist is not listed
 All of Madonna's top 100 hits ordered by their ranking (1 to 100)
