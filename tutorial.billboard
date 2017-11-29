@@ -99,3 +99,49 @@ Every number 1 song since 1990 followed by every number 2 song since 1990 and nu
     FROM tutorial.billboard_top_100_year_end
     WHERE year >= 1990
     ORDER BY year_rank
+
+
+
+What is the highest position ever reached by Phil Collins?
+    select year_rank
+    from tutorial.billboard_top_100_year_end
+    where artist ilike '%phil collins%'
+    order by year_rank
+    limit 1
+
+
+
+What is the average position reached by Michael Jackson?
+    select avg(year_rank) as average
+    from tutorial.billboard_top_100_year_end
+    group by artist
+    having artist ilike '%michael jackson%'
+
+
+Madonna's average position when she actually reached the top 10
+    select avg(year_rank) as average
+    from tutorial.billboard_top_100_year_end
+    where year_rank <= 10
+    group by artist
+    having artist ilike '%madonna%'
+
+
+
+List the top 10 artists based on their number of appearances on this list (and what that number is) since 1985
+    select count(artist) as appearances,
+            artist
+    from tutorial.billboard_top_100_year_end
+    where year >= 1985
+    group by artist
+    order by appearances desc
+    limit 10
+
+
+The total count of top 10 hits written by either Elvis, Madonna, the Beatles, or Elton John
+    select count(artist) as appearances,
+            artist
+    from tutorial.billboard_top_100_year_end
+    where year_rank < 10
+    AND artist in ('Elvis Presley', 'Madonna', 'Beatles', 'Elton John')
+    group by artist
+    order by appearances desc
