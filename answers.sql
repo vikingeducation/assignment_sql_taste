@@ -19,7 +19,7 @@ WHERE month = 12 AND year >= 1985
 
 --4. All housing starts in the second half of the year since 1990
 SELECT *
-FROM tutorial.us_housing_units
+  FROM tutorial.us_housing_units
 WHERE year > 1990 AND month > 6
 
 --5. All rows where housing starts were above 30,000 in the South region
@@ -56,33 +56,33 @@ SELECT *, (south/(south + west + midwest + northeast))*100 AS "South Percentage"
 (midwest/(south + west + midwest + northeast))*100 as "Midwest Percentage",
 (northeast/(south + west + midwest + northeast))*100 as "Northeast Percentage"
   FROM tutorial.us_housing_units
-  WHERE year > 1990
+WHERE year > 1990
 
 --tutorial.billboard_top_100_year_end
 
 --1. All rows where Elvis Presley had a song on the top 100 charts
 SELECT *
-FROM tutorial.billboard_top_100_year_end
+  FROM tutorial.billboard_top_100_year_end
 WHERE artist LIKE 'Elvis Presley'
 
 --2. All rows where the artist's name contained "Tony" (not case sensitive)
 SELECT *
-FROM tutorial.billboard_top_100_year_end
+  FROM tutorial.billboard_top_100_year_end
 WHERE artist ILIKE '%Tony%'
 
 --3. All rows where the song title contained the word "love" in any way
 SELECT *
-FROM tutorial.billboard_top_100_year_end
+  FROM tutorial.billboard_top_100_year_end
 WHERE song_name ILIKE '%love%'
 
 --4. All rows where the artist's name begins with the letter "A"
 SELECT *
-FROM tutorial.billboard_top_100_year_end
+  FROM tutorial.billboard_top_100_year_end
 WHERE artist LIKE 'A%'
 
 --5. The top 3 songs from each year between 1960-1969
 SELECT *
-FROM tutorial.billboard_top_100_year_end
+  FROM tutorial.billboard_top_100_year_end
 WHERE year_rank < 4
   AND year BETWEEN 1960 AND 1969
 
@@ -117,12 +117,14 @@ WHERE year = 1970
 --10. All rows from the 1990's where Madonna was not ranked 10-100th
 SELECT *
   FROM tutorial.billboard_top_100_year_end
-WHERE year BETWEEN 1990 AND 1999 AND artist = 'Madonna' AND year_rank < 10
+WHERE year BETWEEN 1990 AND 1999
+  AND artist = 'Madonna' AND year_rank < 10
 
 --11. All rows from 1985 which do not include Madonna or Phil Collins in the group.
 SELECT *
   FROM tutorial.billboard_top_100_year_end
-WHERE year = 1985 AND "group" NOT LIKE  '%Madonna%' AND "group" NOT LIKE  '%Phil Collins%'
+WHERE year = 1985 AND "group" NOT LIKE  '%Madonna%'
+  AND "group" NOT LIKE  '%Phil Collins%'
 
 --12. All number 1 songs in the data set.
 SELECT *
@@ -169,12 +171,12 @@ WHERE artist = 'Michael Jackson' OR "group" LIKE '%Michael Jackson%'
 
 --3. Madonna's average position when she actually reached the top 10
 SELECT AVG(year_rank) AS "Madonna's Top 10 Average"
-FROM tutorial.billboard_top_100_year_end
+  FROM tutorial.billboard_top_100_year_end
 WHERE year_rank < 11 AND artist = 'Madonna'
 
 --4. List the top 10 artists based on their number of appearances on this list (and what that number is) since 1985
 SELECT artist, COUNT(*)
-FROM tutorial.billboard_top_100_year_end
+  FROM tutorial.billboard_top_100_year_end
 WHERE year > 1985
 GROUP BY artist
 ORDER BY count DESC
