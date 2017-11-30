@@ -150,3 +150,38 @@ SELECT *
   FROM tutorial.billboard_top_100_year_end
 WHERE year > 1989 AND year_rank < 4
 ORDER BY year_rank = 3, year_rank = 2, year_rank = 1
+
+
+--(Optional) Intermediate SQL
+
+--1. What is the highest position ever reached by Phil Collins?
+SELECT *
+  FROM tutorial.billboard_top_100_year_end
+WHERE artist = 'Phil Collins' OR "group" LIKE '%Phil Collins%'
+ORDER BY year_rank
+LIMIT 1
+
+--2. What is the average position reached by Michael Jackson?
+SELECT AVG(year_rank) AS "Michael Jackson's Average"
+  FROM tutorial.billboard_top_100_year_end
+WHERE artist = 'Michael Jackson' OR "group" LIKE '%Michael Jackson%'
+
+--3. Madonna's average position when she actually reached the top 10
+SELECT AVG(year_rank) AS "Madonna's Top 10 Average"
+FROM tutorial.billboard_top_100_year_end
+WHERE year_rank < 11 AND artist = 'Madonna'
+
+--4. List the top 10 artists based on their number of appearances on this list (and what that number is) since 1985
+SELECT artist, COUNT(*)
+FROM tutorial.billboard_top_100_year_end
+WHERE year > 1985
+GROUP BY artist
+ORDER BY count DESC
+LIMIT 10
+
+--5. The total count of top 10 hits written by either Elvis, Madonna, the Beatles, or Elton John
+SELECT SUM(sub.count) AS "Total Top 10's for Elvis, Madonna, Beatles, and Elton John"
+FROM( SELECT artist, COUNT(*)
+      FROM tutorial.billboard_top_100_year_end
+        WHERE year_rank < 11 AND artist = 'Elvis Presley' OR artist = 'Madonna' OR artist = 'Beatles' OR artist = 'Elton John'
+        GROUP BY artist) sub
