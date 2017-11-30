@@ -47,14 +47,69 @@ The average price of days with a trading volume above 25,000,000 shares (just 1 
     where volume >= 25000000
 
 The average price on all months with an average daily trading volume above 10,000,000 shares.
+    SELECT avg(close) AS average_close,
+          month
+    FROM tutorial.aapl_historical_stock_price
+    WHERE volume >= 10000000
+    GROUP by month
+
+
 The lowest and highest prices that Apple stock achieved between 2005 and 2010 (inclusive).
+    SELECT min(low),
+       max(high)
+    FROM tutorial.aapl_historical_stock_price
+    WHERE year between 2005 and 2010
+
+************
 The average daily trading range in months where the stock moved more than $25 (open of month to close of month)
+    SELECT avg(high-low) > 25 AS average_trading_range,
+      month
+    FROM tutorial.aapl_historical_stock_price
+    GROUP BY month
+
 All months in the second half of the year where average daily trading volume was below 10,000,000.
+    SELECT avg(high-low) < 10000000 AS average_trading_range,
+        month
+    FROM tutorial.aapl_historical_stock_price
+    GROUP BY month
+    HAVING month > 6
+
 A list of all calendar months by average daily trading volume (so only 12 rows), sorted from highest to lowest.
+    SELECT avg(volume)
+    FROM tutorial.aapl_historical_stock_price
+    GROUP BY month
+    ORDER BY month desc
+
 Count how many unique months there are in the data set (should equal 12)
+SELECT COUNT(DISTINCT month)
+FROM tutorial.aapl_historical_stock_price
+
 Count how many unique years there are in the data set
+SELECT COUNT(DISTINCT years)
+FROM tutorial.aapl_historical_stock_price
+
 Count how many unique prices there are in the data set
+SELECT COUNT(DISTINCT close)
+FROM tutorial.aapl_historical_stock_price
+
 Return the percentage of unique "open" prices compared to all open prices in the data set
+SELECT COUNT(DISTINCT open)/COUNT(open)
+FROM tutorial.aapl_historical_stock_price
+
+
 A listing of all months by their average daily trading volume and a classification that puts this volume into the following categories: "Low" = below 10MM, "Medium" = 10-25 MM, "High" = above 25MM
+SELECT CASE WHEN avg(volume) < 10000000 THEN 'low'
+            WHEN avg(volume) >= 10000000 AND avg(volume) <25000000 THEN 'medium'
+            WHEN avg(volume) >= 25000000 THEN 'high'
+            ELSE NULL END AS average_daily_trading_volume,
+            month
+FROM tutorial.aapl_historical_stock_price
+group by month
+
+
 A listing of average monthly price plus which quarter of the year they are in (e.g. "Q2" or "Q4").
+
+
+
+
 This same listing filtered for only Q4 (use the new column not the months explicitly as part of this filtering).
