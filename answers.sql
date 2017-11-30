@@ -56,6 +56,7 @@ SELECT *, (south/(south + west + midwest + northeast))*100 AS "South Percentage"
 (midwest/(south + west + midwest + northeast))*100 as "Midwest Percentage",
 (northeast/(south + west + midwest + northeast))*100 as "Northeast Percentage"
   FROM tutorial.us_housing_units
+  WHERE year > 1990
 
 --tutorial.billboard_top_100_year_end
 
